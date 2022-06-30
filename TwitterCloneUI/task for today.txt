@@ -1,0 +1,12 @@
+bypass the landing page
+
+seed 1 account
+
+focus creating the new tweet functionality and viewing existing tweets from user
+
+seed 2 more accounts
+
+create the login page
+
+seed the followings between accounts created
+

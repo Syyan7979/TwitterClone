@@ -1,0 +1,11 @@
+get the tweets of user kevin => should show 2 tweets created earlier
+
+get the following of user kevin => should show 2 people followed by user kevin
+
+get the followers of user kevin => should also show the 2 people that follow user kevin
+
+get the likes of user kevin => should show the tweet of user kaye
+
+get the medias of user keivn => should show the tweet with the "i love sherlockHolmes"
+
+get the feed of user kevin => should show the tweets of the 2 people user kevin follows

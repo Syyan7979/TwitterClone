@@ -1,0 +1,8 @@
+<div class="container">
+    <div *ngFor="let tweet of tweets" class="row">
+        <div class="col">User: {{tweet.userID}}</div>
+        <div class="col">Tweet: {{tweet.content}}</div>
+        <div class="col">Likes: {{tweet.likes}}</div>
+        <div class="col">Time: {{tweet.timestamp}}</div>
+    </div>
+</div>

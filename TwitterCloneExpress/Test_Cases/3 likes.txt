@@ -1,0 +1,35 @@
+get all the likes => should show empty
+
+Create the 3 likes (user kurt and user kaye) mentioned of kevins second tweet earlier and user kevin liking user kaye's post
+
+{
+    "userId" : "<userId of kevin>",
+    "tweetId" : "<tweetId of kaye's tweet>"
+}
+
+{
+    "userId" : "<userId of Kurt>",
+    "tweetId" : "<tweetId of kevin's second tweet>"
+}
+
+{
+    "userId" : "<userId of kaye>",
+    "tweetId" : "<tweetId of kevin's second tweet>"
+}
+
+create the second one again should show error
+
+get all the likes => should now show 3
+
+get the like of user kc => should show the established like
+
+delete the like of user kc => should delete
+
+get the like of user kc => should show like does not exist error
+
+get all the likes => should now only show 2
+
+re-establish the like of user kc and kevin's post
+
+get all likes => should now show 3 again
+

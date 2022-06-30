@@ -1,0 +1,51 @@
+try to get all users => Should show no users
+
+Create 3 new users, which are the following:
+{
+    "userName" : "kc",
+    "twitterHandle" : "kaysee",
+    "email" : "kaye@gmail.com",
+    "password" : "princess"
+}
+
+{
+    "userName" : "kurt",
+    "twitterHandle" : "syyan",
+    "email" : "kurt@gmail.com",
+    "password" : "helloworld"
+}
+
+{
+    "userName" : "kevin",
+    "twitterHandle" : "kebin",
+    "email" : "kevin@gmail.com",
+    "password" : "221BBakerStreet"
+}
+
+Try to create user kevin again => should show that user already exists
+
+get all users again => should now show 3 users
+
+get user (<use id of user kevin>) => should show user kevin
+
+update password of (<user kevin) to sherlockHolmes
+{
+    "password" : "sherlockHolmes"
+}
+
+get user (<use id of user kevin>) => should now show user kevin password is sherlockHolmes
+
+delete user kevin 
+
+get all users again => should now show 2 users
+
+Create user kevin again but this time with sherlockHolmes password
+
+{
+    "userName" : "kevin",
+    "twitterHandle" : "kebin",
+    "email" : "kevin@gmail.com",
+    "password" : "sherlockHolmes"
+}
+
+get all users again => should now show 3 users

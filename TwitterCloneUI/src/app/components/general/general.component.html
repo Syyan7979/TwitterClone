@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <ul>
+                <li>
+                    <a routerLink="/home" (click)="showHomePage()">Home</a>
+                </li>
+                <li>
+                    Profile
+                </li>
+            </ul>
+        </div>
+        <div class="col-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

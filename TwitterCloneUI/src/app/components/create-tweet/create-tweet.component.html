@@ -1,0 +1,23 @@
+<div class="container">
+    <form #nwTweet="ngForm" (ngSubmit)="newTweet(nwTweet)">
+        <div class="for-group">
+            <label for="content">What's Happening?</label>
+            <textarea
+                minlength="1" 
+                maxlength="280"
+                [(ngModel)] = "content"
+                id="content" 
+                cols="30" 
+                rows="5" 
+                class="form-control"
+                name = "content">
+            </textarea>
+        </div>
+        <div *ngIf="content == ''">
+            <button type="submit" class="btn btn-primary" disabled>Tweet</button>
+        </div>
+        <div *ngIf="content !== ''">
+            <button type="submit" class="btn btn-primary">Tweet</button>
+        </div>
+    </form>
+</div>

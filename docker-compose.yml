@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  twitterclone_express:
+    build: ./TwitterCloneExpress
+    ports:
+      - 3000:3000
+    volumes:
+      - ./TwitterCloneExpress/:/app
+    environment:
+      - DB_NAME=TwitterCloneDB
+      - DB_HOST=db_server
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=Gengwapa7979
+    depends_on:
+      - db_server
+    command: "bash start.sh db_server:3306"
+  db_server:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Gengwapa7979
+      - MYSQL_DATABASE=TwitterCloneDB
+  twitterclone_angular:
+    build: ./TwitterCloneUI
+    ports:
+      - 4202:4200
+    volumes:
+      - ./TwitterCloneUI/:/app

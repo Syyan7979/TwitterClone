@@ -1,0 +1,36 @@
+get current established following between users => should show empty
+
+create following between users, in particular user kevin follows users (kaye, kurt) and users kaye and kurt follows user kevin
+
+{
+    "followerId" : <user kevin Id>,
+    "followeeId" : <user kaye Id>
+}
+
+{
+    "followerId" : <user kevin Id>,
+    "followeeId" : <user kurt Id>
+}
+
+{
+    "followerId" : <user kaye Id>,
+    "followeeId" : <user kevin Id>
+}
+
+{
+    "followerId" : <user kurt Id>,
+    "followeeId" : <user kevin Id>
+}
+
+
+get established followings between users again => should now show 4 established followings
+
+get established following between user kevin and kaye => should show correct following
+
+delete established following between user kevin and kaye
+
+again get established following between user kevin and kaye => should now show that following does not exist
+
+re establish user kevin and kaye following
+
+get established followings between users again => should now show 4 established followings

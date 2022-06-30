@@ -1,0 +1,65 @@
+get all tweets => should show empty
+
+create tweets for all created users earlier, the following:
+
+{
+    "userId" : <userId of Kc>,
+    "replyId" : null,
+    "content" : "Electricity travels at the speed of light, about 300,000 kilometres per second.",
+    "media" : null,
+    "likes" : 1
+}
+
+{
+    "userId" : <userId of Kurt>,
+    "replyId" : null,
+    "content" : "My idol is the father of computer science, Alan Turing",
+    "media" : null,
+    "likes" : 0
+}
+
+{
+    "userId" : <userId of Kevin>,
+    "replyId" : null,
+    "content" : "I love Shelock Holmes!",
+    "media" : "path to sherlockHolmes file",
+    "likes" : 0
+}
+
+{
+    "userId" : <userId of Kevin>,
+    "replyId" : <tweetId of kevin's first tweet>,
+    "content" : "When you have eliminated the impossible, whatever remains, however improbable, must be the truth.",
+    "media" : null,
+    "likes" : 2
+}
+
+{
+    "userId" : <userId of Kurt>,
+    "replyId" : null,
+    "content" : "I got my name from Kurt Cobain",
+    "media" : null,
+    "likes" : 0
+}
+
+
+
+get all tweets again => should now show 5 tweeets created
+
+get second tweet of user Kurt => should show the one with kurt Cobain
+
+update contents of tweet of user Kurt => update to I got my name from the rock artist Kurt Cobain
+
+{
+    "content" : "I got my name from the rock artist Kurt Cobain"
+}
+
+get second tweet of user Kurt => should now show update contents of tweet
+
+delete the second tweet of user Kurt
+
+get the second tweet again => should now show that tweet no longer exist.
+
+get all tweets again => should now only show 4 tweets
+
+get the replies of user kevin's "I love sherlockHolmes tweet
