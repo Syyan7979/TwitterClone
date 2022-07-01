@@ -1,25 +1,119 @@
-<div class="container">
-    <h1>Create your account</h1>
-    <form #login="ngForm" (ngSubmit)="createAccount(login)">
-        <div class="form-group">
-            <label for="userName">Username:</label>
-            <input #un="ngModel" required type="text" class="form-control" name="userName" ngModel>
+<div class="center-contents">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header py-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Create your account</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="form input-fields">
+                        <div class="form-floating my-4 username-input">
+                            <input 
+                                name ="username"
+                                type="username" 
+                                class="form-control" 
+                                id="floatingUsername" 
+                                placeholder="syyan"
+                                [formControl]="userName"
+                                [class.is-invalid]="userName.invalid && (errorCheck('username') || userName.touched)"
+                                [class.is-valid]="userName.valid"
+                                [class.exists]="user_exists('username')"
+                                [class.too-short]="too_short()"
+                                [class.touched]="userName.touched && !errorCheck('username')">
+                            <label for="floatingUsername">Username</label>
+                            <div class="user-exists">
+                                Username has already been taken.
+                            </div>
+                            <div class="short-username">
+                                Username is too short.
+                            </div>
+                            <div class="choose-username">
+                                Username required.
+                            </div>
+                        </div>
+                        <div class="form-floating my-4 email-input">
+                            <input 
+                                name = "email"
+                                required
+                                type="email" 
+                                class="form-control" 
+                                id="floatingEmail" 
+                                placeholder="name@example.com"
+                                [formControl]="email"
+                                [class.is-invalid]="email.invalid && (errorCheck('email') || email.touched)"
+                                [class.is-valid]="email.valid"
+                                [class.exists]="user_exists('email')"
+                                [class.invalid-email]="invalid_input('email')"
+                                [class.touched]="email.touched && !errorCheck('email')">
+                            <label for="floatingEmail">Email address</label>
+                            <div class="email-exists">
+                                Email has already been taken.
+                            </div>
+                            <div class="email-invalid">
+                                Invalid Email.
+                            </div>
+                            <div class="choose-email">
+                                Email required.
+                            </div>
+                        </div>
+                        <div class="form-floating my-4 password-input">
+                            <input 
+                                name = "password"
+                                minlength="8"
+                                maxlength="120"
+                                required
+                                type="password" 
+                                class="form-control" 
+                                id="floatingPassword" 
+                                placeholder="Password"
+                                [formControl]="password"
+                                [class.is-invalid]="password.invalid && (password.touched || invalid_input('password'))"
+                                [class.is-valid]="password.valid"
+                                [class.invalid-password] = "invalid_input('password')"
+                                [class.touched]="password.touched && !invalid_input('password')">
+                            <label for="floatingPassword">Password</label>
+                            <div class="choose-password">
+                                password required.
+                            </div>
+                            <div class="weak-password">
+                                password should be at least 8 characters and should contain at least 1 Uppercase letter, 1 Lowercase letter, 1 number, and 1 special character.
+                            </div>
+                        </div>
+                        <div class="form-floating my-4 rePassword-input">
+                            <input 
+                                required
+                                type="password" 
+                                class="form-control" 
+                                id="floatingRePassword" 
+                                placeholder="Password"
+                                [formControl]="rePassword"
+                                [class.is-invalid]="(rePassword.invalid || !password_consistency())&&rePassword.touched"
+                                [class.is-valid]="rePassword.valid && password_consistency()"
+                                [class.invalid-rePassword]="!password_consistency() && rePassword.value !=''"
+                                [class.touched]="rePassword.touched && rePassword.invalid">
+                            <label for="floatingRePassword">Re-enter Password</label>
+                            <div class="choose-rePassword">
+                                Re-entering password is required.
+                            </div>
+                            <div class="password-mismatch">
+                                Please make sure your passwords match.
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button 
+                                (click)="createAccount()" 
+                                class="btn btn-primary register-button" [disabled]="!userName.valid || !email.valid || !password.valid || !rePassword.valid">
+                                Sign up
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input #e="ngModel" required type="text" class="form-control" name="email" ngModel>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input #p="ngModel" required type="text" class="form-control" name="password" ngModel>
-        </div>
-
-        <div *ngIf="un.valid && e.valid && p.valid">
-            <button class="btn btn-primary active" type="submit">submit</button>
-        </div>
-
-        <div *ngIf="un.invalid || e.invalid || p.invalid">
-            <button class="btn btn-primary active" disabled type="submit">submit</button>
-        </div>
-    </form>
+    </div>
 </div>

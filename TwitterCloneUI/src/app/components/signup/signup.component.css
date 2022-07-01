@@ -1,0 +1,142 @@
+.card {
+    border-radius: 25px;
+}
+
+.card .card-header {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: #1ea5ff;
+    color : white;
+    height: 80px;
+}
+
+.card-header .row{
+    min-height: 80px;
+}
+
+.center-contents {
+    margin: 7% 12%;
+}
+
+.register-button {
+    width: 75%;
+    border-radius: 30px;
+    margin-top: 10%;
+    background-color: #272c30;
+    height: 60px;
+    margin-bottom: 5%;
+}
+
+.form .form-floating{
+    margin: 0 12%;
+}
+
+.email-input.ng-touched.ng-invalid{
+    border: red 2px solid;
+}
+
+.input-fields input.ng-valid{
+    border: #1ea5ff 2px solid;
+}
+
+.username-input .is-invalid.exists ~ .user-exists{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.username-input .is-invalid.too-short ~ .short-username{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.username-input .is-invalid.touched ~ .choose-username{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.username-input .user-exists{
+    display: none;
+}
+
+.username-input .short-username{
+    display: none;
+}
+
+.username-input .choose-username{
+    display: none;
+}
+
+.email-input .is-invalid.exists ~ .email-exists{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.email-input .is-invalid.invalid-email ~ .email-invalid{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.email-input .is-invalid.touched ~ .choose-email{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.email-input .email-exists{
+    display: none;
+}
+
+.email-input .email-invalid{
+    display: none;
+}
+
+.email-input .choose-email{
+    display: none;
+}
+
+.password-input .is-invalid.invalid-password ~ .weak-password{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+    font-size: 12px;
+}
+
+.password-input .is-invalid.touched ~ .choose-password{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.password-input .weak-password{
+    display: none;
+}
+
+.password-input .choose-password{
+    display: none;
+}
+
+.rePassword-input .is-invalid.invalid-rePassword ~ .password-mismatch{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+    font-size: 12px;
+}
+
+.rePassword-input .is-invalid.touched ~ .choose-rePassword{
+    color: red;
+    display: inline;
+    padding-left: 10px;
+}
+
+.rePassword-input .password-mismatch{
+    display: none;
+}
+
+.rePassword-input .choose-rePassword{
+    display: none;
+}

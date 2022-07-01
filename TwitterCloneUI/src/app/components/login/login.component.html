@@ -1,21 +1,50 @@
-<div class="container">
-    <h1>Create your account</h1>
-    <form #login="ngForm" (ngSubmit)="signIn(login)">
-        <div class="form-group">
-            <label for="userName">Username:</label>
-            <input #userName="ngModel" required type="text" class="form-control" name="userName" ngModel>
+<div class="center-contents">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header py-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Sign in to Twitter</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="form input-fields">
+                        <div class="form-floating my-4 username-input">
+                            <input 
+                                name ="username"
+                                type="username" 
+                                class="form-control" 
+                                id="floatingUsername" 
+                                placeholder="syyan"
+                                [formControl]="userName_email">
+                            <label for="floatingUsername">Username or Email</label>
+                        </div>
+                        <div class="form-floating my-4 password-input">
+                            <input 
+                                name = "password"
+                                minlength="8"
+                                maxlength="120"
+                                required
+                                type="password" 
+                                class="form-control" 
+                                id="floatingPassword" 
+                                placeholder="Password"
+                                [formControl]="password">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button 
+                                (click)="signIn()" 
+                                class="btn btn-primary login-button" [disabled]="password.value == '' || userName_email.value == ''">
+                                Log in
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input #password="ngModel" required type="text" class="form-control" name="password" ngModel>
-        </div>
-
-        <div *ngIf="userName.valid &&  password.valid">
-            <button class="btn btn-primary active" type="submit">Sign in</button>
-        </div>
-
-        <div *ngIf="userName.invalid || password.invalid">
-            <button class="btn btn-primary active" disabled type="submit">sign in</button>
-        </div>
-    </form>
+    </div>
 </div>

@@ -1,0 +1,32 @@
+.card {
+  border-radius: 25px;
+}
+
+.card .card-header {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #1ea5ff;
+  color : white;
+  height: 80px;
+}
+
+.card-header .row{
+  min-height: 80px;
+}
+
+.center-contents {
+  margin: 7% 12%;
+}
+
+.login-button {
+  width: 75%;
+  border-radius: 30px;
+  margin-top: 25%;
+  background-color: #272c30;
+  height: 60px;
+  margin-bottom: 5%;
+}
+
+.form .form-floating{
+  margin: 0 12%;
+}

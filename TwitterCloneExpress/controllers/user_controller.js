@@ -6,22 +6,18 @@ const UserService = (UsersRepository) => {
         // Creating New Users.
         createUser : async function(req, res) {
             try {
-                let user = await UsersRepository.usernameExistence(req.body.userName);
-                if(user.length > 0) {
-                    throw new Error("Username already taken!");
-                }
-
                 const newUserId = shortid.generate();
                 var body = {
                     userName: req.body.userName,
                     twitterHandle: req.body.twitterHandle,
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
+                    profileImage : req.body.profileImage,
+                    headerImage : req.body.headerImage
                 }
                 let newUser = await UsersRepository.insertUser(newUserId, body);
-                res.status(200).json({
-                    body : req.body
-                });
+                body['userId'] = newUserId;
+                res.status(200).send(body);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -170,13 +166,33 @@ const UserService = (UsersRepository) => {
 
         validateUser : async function (req, res) {
             try {
-                let user = await UsersRepository.login_validate(req.query.userName, req.query.password);
-                res.status(200).json({
-                    userId : user.userId
-                })
+                let user = await UsersRepository.login_validate(req.body.identifier, req.body.password);
+                res.status(200).send(user);
             } catch (error) {
                 ErrorHandling(error, res);
             }
+        },
+
+        userNameCheck : async function (req, res, next) {
+            if (req.query.userName && !req.query.email) {
+                try {
+                    let users = await UsersRepository.usernameExistence(req.query.userName);
+                    res.status(200).send(users)
+                } catch (error) {
+                    ErrorHandling(error, res);
+                }
+            } else next()
+        },
+
+        userEmailCheck : async function (req, res, next) {
+            if (!req.query.userName && req.query.email) {
+                try {
+                    let users = await UsersRepository.useremailExistence(req.query.email);
+                    res.status(200).send(users)
+                } catch (error) {
+                    ErrorHandling(error, res);
+                }
+            } else next()
         }
     };
 
@@ -188,7 +204,7 @@ function ErrorHandling(error, res){
     const check2 = "Username already taken!";
     const check3 = 'Invalid username or password';
 
-    if (check.localeCompare(error.message) == 0 || check3.localeCompare(error.message) == 0) {
+    if (check.localeCompare(error.message) == 0) {
         res.status(404).json({
             error : {
                 message : error.message
@@ -196,6 +212,12 @@ function ErrorHandling(error, res){
         });
     } else if (check2.localeCompare(error.message) == 0) {
         res.status(400).json({
+            error: {
+                message: error.message
+            }
+        });
+    } else if (check3.localeCompare(error.message) == 0) {
+        res.status(401).json({
             error: {
                 message: error.message
             }

@@ -1,9 +1,11 @@
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `users`(
     `userId` VARCHAR(14) NOT NULL,
     `userName` VARCHAR(15) NOT NULL,
     `twitterHandle` VARCHAR(15) NOT NULL,
     `email` VARCHAR(320) NOT NULL,
     `password` VARCHAR (128) NOT NULL,
+    `profileImage` VARCHAR(255),
+    `headerImage` VARCHAR(255),
     PRIMARY KEY (`userId`)
 );
 

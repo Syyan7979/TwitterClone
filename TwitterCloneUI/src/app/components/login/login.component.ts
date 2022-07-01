@@ -1,7 +1,9 @@
+import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginUser } from 'src/app/interfaces/user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,18 +11,25 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService : UserService, private router : Router) {}
+  constructor(private userService : UserService, private router : Router, private authService : AuthService) {}
   private user : string = '';
+
+  public userName_email = new FormControl('');
+  public password = new FormControl('');
 
   ngOnInit(): void {
   }
 
-  signIn(credentials : any) : void {
-    let body = credentials.value
-    this.userService.getCurrentUser(body.userName, body.password).subscribe( 
-      user => {
-        this.user = user.userId;
-        this.userService.setUser(this.user);
-        this.router.navigate(['home'], {state: {id: this.user}})});
+  signIn() : void { 
+    let loginUser : LoginUser = {
+      identifier : this.userName_email.value,
+      password : this.password.value,
+    }
+
+    this.authService.loginUser(loginUser).subscribe(
+      res => console.log(res)
+    )
+
   }
+    
 }

@@ -25,7 +25,7 @@ class Users {
     };
 
     static insertUser(userId, values){
-        let sql = `CALL insert_user('${userId}', '${values.userName}', '${values.twitterHandle}', '${values.email}', '${values.password}')`;
+        let sql = `CALL insert_user('${userId}', '${values.userName}', '${values.twitterHandle}', '${values.email}', '${values.password}', '${values.profileImage}', '${values.headerImage}')`;
         return db.execute(sql);
     };
 
@@ -42,6 +42,16 @@ class Users {
     static async usernameExistence(userName) {
         try {
             let sql = `CALL check_username_existence('${userName}')`;
+            let [users, _] = await db.execute(sql);
+            return users[0];
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    static async useremailExistence(email) {
+        try {
+            let sql = `CALL check_email_existence('${email}')`;
             let [users, _] = await db.execute(sql);
             return users[0];
         } catch (error) {
@@ -116,9 +126,9 @@ class Users {
         }
     };
 
-    static async login_validate(userName, password) {
+    static async login_validate(userName_email, password) {
         try {
-            let sql = `CALL login_validation('${userName}', '${password}')`;
+            let sql = `CALL login_validation('${userName_email}', '${password}')`;
             let [user, _] = await db.query(sql);
             if (user[0].length == 0) {
                 throw new Error('Invalid username or password');
