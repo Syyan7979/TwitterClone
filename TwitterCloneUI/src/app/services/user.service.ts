@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of } from 'rxjs';
 import { Tweet } from '../interfaces/tweet';
 import { map, debounceTime } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,34 @@ import { map, debounceTime } from 'rxjs/operators';
 export class UserService {
   private usersUrl: string = 'http://localhost:3000/users';
 
-  private user : string = "";
+  constructor(private http: HttpClient, private authService : AuthService) {};
 
-  constructor(private http: HttpClient) {};
-  
-  createUser(user: User): Observable<User> {
-    return this.http.post<any>(this.usersUrl + '/create', user)
+  getUserFeed(id : string | undefined) : Observable<Tweet[]> {
+    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/feed`);
   }
 
-  getCurrentUser(userName : string, password : string): Observable<User> {
-    return this.http.get<any>(this.usersUrl + `?userName=${userName}&password=${password}`);
+  getUserTweets(id : string | undefined) : Observable<Tweet[]> {
+    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/tweets`);
   }
 
-  setUser(userId : string) : void {
-    this.user = userId;
+  getUser(id : string | undefined) : Observable<User> {
+    return this.http.get<User>(this.usersUrl + `/${id}`);
   }
 
-  getUserId() : string {
-    return this.user;
+  getFollowers(id : string | undefined) : Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl + `/${id}/followers`);
   }
 
-  getUserFeed(id : string) : Observable<Tweet[]> {
-    return this.http.get<Tweet[]>(this.usersUrl + `/user/${id}/feed`)
+  getFollowings(id : string | undefined) : Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl + `/${id}/followings`);
+  }
+
+  getUserTweetsWithMedia(id : string | undefined) : Observable<Tweet[]> {
+    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/medias`);
+  }
+
+  getLikedTweets(id : string | undefined) : Observable<Tweet[]>{
+    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/likes`);
   }
 
   userAsyncValidator() : AsyncValidatorFn {

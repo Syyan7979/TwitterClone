@@ -1,0 +1,8 @@
+.main-content {
+    border-left : 1px solid #cfd9de;
+    border-right: 1px solid #cfd9de;
+}
+
+.main:hover{
+    cursor: pointer;
+}

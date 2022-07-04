@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `users`(
     `password` VARCHAR (128) NOT NULL,
     `profileImage` VARCHAR(255),
     `headerImage` VARCHAR(255),
+    `timeStamp` BIGINT,
     PRIMARY KEY (`userId`)
 );
 

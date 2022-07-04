@@ -27,8 +27,8 @@ class Follows {
         return db.execute(sql);
     };
 
-    static deleteFollowing(followId) {
-        let sql = `CALL delete_following('${followId}')`;
+    static deleteFollowing(followerId, followeeId) {
+        let sql = `CALL delete_following('${followerId}', '${followeeId}')`;
         return db.execute(sql);
     };
 

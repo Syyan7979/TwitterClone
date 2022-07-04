@@ -2,7 +2,7 @@
     -- Getting all the users
 CREATE PROCEDURE get_all_users()
 BEGIN
-SELECT userId, userName, twitterHandle, email, profileImage, headerImage  FROM users;
+SELECT userId, userName, twitterHandle, email, profileImage, headerImage, timeStamp  FROM users;
 END;
 
     -- Getting a particular user given userId
@@ -11,7 +11,7 @@ CREATE PROCEDURE `get_user`(
 )
 BEGIN
 SELECT 
-	userId, userName, twitterHandle, email, profileImage, headerImage 
+	userId, userName, twitterHandle, email, profileImage, headerImage, timeStamp 
 FROM 
 	users
 WHERE userId = id;
@@ -30,9 +30,9 @@ CREATE PROCEDURE `insert_user`(
 BEGIN
 INSERT INTO
 	users 
-(userId, userName, twitterHandle, email, password, profileImage, headerImage) 
+(userId, userName, twitterHandle, email, password, profileImage, headerImage, timeStamp) 
 VALUES 
-(id, userN, twitHand, userEmail, pass, dp, hp);
+(id, userN, twitHand, userEmail, pass, dp, hp, unix_timestamp());
 END;
 
     -- Updating a parameter for a user in users given their userId
@@ -183,6 +183,7 @@ END;
 	-- validating login
 CREATE PROCEDURE `login_validation`(
 	IN usrName VARCHAR(15),
+	In usrEmail VARCHAR(320),
     IN pwrd VARCHAR(128)
 )
 BEGIN
@@ -191,7 +192,7 @@ SELECT
 FROM 
 	users
 WHERE
-	(userName = usrName AND password = pwrd) OR (email = usrName AND password = pwrd);
+	(userName = usrName AND password = pwrd) OR (email = usrEmail AND password = pwrd);
 END;
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -329,10 +330,11 @@ END;
     -- Delete a following in follows given a followId
 
 CREATE PROCEDURE `delete_following`(
-	IN id VARCHAR(14)
+	IN frId VARCHAR(14),
+	IN feId VARCHAR(14)
 )
 BEGIN
-DELETE FROM follows WHERE followId = id;
+DELETE FROM follows WHERE followerId = frId AND followeeId = feId;
 END;
 
     -- Following dependency Check
@@ -412,8 +414,8 @@ END;
 
  -- Seeding 1 user
  
-CALL insert_user('1', '@kurtIsrael', 'kurt', 'kurt@gmail.com', 'password', 'https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png', 'https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg');
-CALL insert_user('2', '@kebin', 'kevin', 'kevin@gmail.com', 'sherlock', 'https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png', 'https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg');
+CALL insert_user('1', 'kurtIsrael', 'kurt', 'kurt@gmail.com', 'password', 'https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png', 'https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg');
+CALL insert_user('2', 'kebin', 'kevin', 'kevin@gmail.com', 'sherlock', 'https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png', 'https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg');
 call insert_following('1', '1', '2');
 CALL insert_tweet('1', '2', 'null', 'I love jollibee ChickenJoy', 'null', '0');
 CALL insert_tweet('2', '2', 'null', 'I love greenwhich lasagna supreme', 'null', '0');

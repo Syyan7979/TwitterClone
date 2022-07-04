@@ -13,6 +13,8 @@ router.get('/All', controller.getFollowings)
 router.get('/:followId', controller.getFollowing)
 
 // Deleting an existing established following between users
-router.delete('/:followId', controller.deleteFollowing)
+router.delete('/', controller.deleteFollowing)
+
+router.get('', controller.followingExistence)
 
 module.exports = router;

@@ -18,7 +18,7 @@ class Users {
         try {
             let sql = `CALL get_user('${userId}')`;
             let [user, _] = await db.execute(sql);
-            return user[0];
+            return user[0][0];
         } catch (error) {
             throw error;
         }
@@ -126,9 +126,9 @@ class Users {
         }
     };
 
-    static async login_validate(userName_email, password) {
+    static async login_validate(userName, email, password) {
         try {
-            let sql = `CALL login_validation('${userName_email}', '${password}')`;
+            let sql = `CALL login_validation('${userName}', '${email}', '${password}')`;
             let [user, _] = await db.query(sql);
             if (user[0].length == 0) {
                 throw new Error('Invalid username or password');

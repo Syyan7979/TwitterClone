@@ -1,5 +1,5 @@
-const res = require('express/lib/response');
 const shortid = require('shortid');
+const jwt = require('jsonwebtoken');
 
 const UserService = (UsersRepository) => {
     const controller = {
@@ -17,7 +17,9 @@ const UserService = (UsersRepository) => {
                 }
                 let newUser = await UsersRepository.insertUser(newUserId, body);
                 body['userId'] = newUserId;
-                res.status(200).send(body);
+                let payload = {subject : newUserId};
+                let token = jwt.sign(payload, 'Gengwapa7979');
+                res.status(200).send({token});
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -43,10 +45,7 @@ const UserService = (UsersRepository) => {
         getUsers : async function(req, res) {
             try {
                 let users = await UsersRepository.getAllUsers();
-                res.status(200).json({
-                    Count : users.length,
-                    Data : users
-                });
+                res.status(200).send(users);
             } catch (error) {
                 res.status(500).json({
                     error : {
@@ -61,9 +60,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let user  = await UsersRepository.getUser(req.params.userId);
-                res.status(200).json({
-                    Data : user
-                });
+                res.status(200).send(user);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -87,10 +84,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let tweets = await UsersRepository.userTweets(req.params.userId);
-                res.status(200).json({
-                    Count : tweets.length,
-                    Data: tweets
-                });
+                res.status(200).send(tweets);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -101,10 +95,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let followings = await UsersRepository.userFollowings(req.params.userId);
-                res.status(200).json({
-                    Count : followings.length,
-                    Data: followings
-                });
+                res.status(200).send(followings)
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -115,10 +106,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let followers = await UsersRepository.userFollowers(req.params.userId);
-                res.status(200).json({
-                    Count : followers.length,
-                    Data: followers
-                });
+                res.status(200).send(followers);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -129,10 +117,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let feed = await UsersRepository.userFeed(req.params.userId);
-                res.status(200).json({
-                    Count : feed.length,
-                    Data: feed
-                });
+                res.status(200).send(feed);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -142,10 +127,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let likes = await UsersRepository.userLikes(req.params.userId);
-                res.status(200).json({
-                    Count : likes.length,
-                    Data: likes
-                });
+                res.status(200).send(likes);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -155,10 +137,7 @@ const UserService = (UsersRepository) => {
             try {
                 await UsersRepository.existenceCheck(req.params.userId);
                 let medias = await UsersRepository.userMedias(req.params.userId);
-                res.status(200).json({
-                    Count : medias.length,
-                    Data: medias
-                });
+                res.status(200).send(medias);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -166,8 +145,10 @@ const UserService = (UsersRepository) => {
 
         validateUser : async function (req, res) {
             try {
-                let user = await UsersRepository.login_validate(req.body.identifier, req.body.password);
-                res.status(200).send(user);
+                let user = await UsersRepository.login_validate(req.body.userName, req.body.email, req.body.password);
+                let payload = {subject : user.userId}
+                let token = jwt.sign(payload, "Gengwapa7979")
+                res.status(200).send({token});
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -193,6 +174,22 @@ const UserService = (UsersRepository) => {
                     ErrorHandling(error, res);
                 }
             } else next()
+        },
+
+        verifytToken: function (req, res, next) {
+            if (!req.headers.authorization) {
+                return res.status(401).send('Unauthorized request');
+            }
+            let token = req.headers.authorization.split(' ')[1];
+            if (token === 'null') {
+                return res.status(401).send('Unauthorized request');
+            }
+            let payload = jwt.verify(token, 'Gengwapa7979');
+            if(!payload) {
+                return res.status(401).send('Unauthorized request');
+            }
+            req.userId = payload.subject;
+            next();
         }
     };
 

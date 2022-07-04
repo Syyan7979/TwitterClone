@@ -36,7 +36,7 @@ router.get('/:userId/likes', controller.getUserLikes)
 router.get('/:userId/medias', controller.getUserMedias)
 
 // Getting the feed of the user.
-router.get('/:userId/feed', controller.getUserFeed)
+router.get('/:userId/feed', controller.verifytToken, controller.getUserFeed)
 
 router.get('', controller.userNameCheck, controller.userEmailCheck);
 

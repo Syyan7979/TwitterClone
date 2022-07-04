@@ -1,12 +1,15 @@
-<div class="container">
-    <div class="row">
+<div class="container general-container">
+    <div class="row main-row">
         <div class="col-3">
             <ul>
                 <li>
-                    <a routerLink="/home" (click)="showHomePage()">Home</a>
+                    <button type="button" class="btn btn-" (click)="showHomePage()">Home</button>
                 </li>
                 <li>
-                    Profile
+                    <button type="button" class="btn btn-" (click)="showProfilePage()">Profile</button>
+                </li>
+                <li>
+                    <button *ngIf="authService.loggedIn()" type="button" class="btn btn-" (click)="authService.logoutUser()">Log out</button>
                 </li>
             </ul>
         </div>

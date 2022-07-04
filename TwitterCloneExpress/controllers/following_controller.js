@@ -28,8 +28,8 @@ const FollowsService = (FollowsRepository) => {
         // Deleting a following established between users.
         deleteFollowing : async function(req, res) {
             try {
-                await FollowsRepository.existenceCheck(req.params.followId);
-                let deletedFollowing = await FollowsRepository.deleteFollowing(req.params.followId);
+                console.log(req.query.followerId);
+                let deletedFollowing = await FollowsRepository.deleteFollowing(req.query.followerId, req.query.followeeId);
                 res.status(200).json({
                     Message : "successfully deleted following with followId: " + req.params.followId 
                 })
@@ -63,6 +63,15 @@ const FollowsService = (FollowsRepository) => {
                 res.status(200).json({
                     Data : follow
                 });
+            } catch (error) {
+                ErrorHandling(error, res);
+            }
+        },
+
+        followingExistence : async function(req, res) {
+            try {
+                let follow = await FollowsRepository.followingExistence(req.query.followerId, req.query.followeeId);
+                res.status(200).send(follow[0])
             } catch (error) {
                 ErrorHandling(error, res);
             }

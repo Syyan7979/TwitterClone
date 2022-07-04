@@ -1,0 +1,61 @@
+<div class="row" style="height: 100%;">
+    <div class="col-8 p-0 main-content">
+        <div class="row m-0 px-3 py-2">
+            <a class="p-0 m-0" style="text-decoration: none; color: black; font-weight: bold">
+                <h5 class="p-0 m-0 main">Tweet</h5>
+            </a>
+        </div>
+        <div *ngIf="tweet" class="row m-0 p-0 the-tweet">
+            <div class="row m-0 p-0 user-row px-3 py-2">
+                <div class="col-auto m-0 p-0 me-3 profile-image">
+                    <div class="row m-0 p-0">
+                        <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0">
+                    </div>
+                </div>
+                <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
+                    <div class="row m-0 p-0 content-header">
+                        <div class="row user-handle m-0 p-0" ><strong class="p-0">{{user.twitterHandle}}</strong></div>
+                        <div class="row m-0 p-0 user-name">@{{user.userName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="user" class="row m-0 p-0 px-3 py-2 content-row">
+                <div class="col m-0 p-0">{{tweet.content}}</div>
+            </div>
+            <div class="row m-0 p-0 time-row px-3 py-2">
+                {{correctTimeStamp() | date}}
+            </div>
+            <div class="row m-0 p-0 px-3 py-1 options-row">
+                <div class="col p-0 m-0 reply d-flex justify-content-center align-items-center">
+                    <img src="https://img.icons8.com/small/512/twitter-reply.png" width="18px" height="18px">
+                </div>
+                <div class="col p-0 m-0 retwet d-flex justify-content-center align-items-center">
+                    <img src="https://cdn-icons.flaticon.com/png/512/2734/premium/2734827.png?token=exp=1656864562~hmac=163aec22f3e6f0d2f9ee4871c66d58d6" width="18px" height="18px">
+                </div>
+                <div class="col p-0 m-0 like d-flex justify-content-center align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="18px" height="18px">
+                </div>
+            </div>
+        </div>
+        <div class="row px-3 py-2 m-0 create-tweet align-items-center">
+            <div class="col-auto p-0 profile-image">
+                <div class="row m-0">
+                    <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()">
+                </div>
+            </div>
+            <div class="col new-tweet">
+                <div class="row m-0">
+                    <div class="form-floating p-0">
+                        <textarea [(ngModel)]="content" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
+                        <label for="floatingTextarea2">Tweet your reply</label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-auto p-0 mt-2">
+                <button type="submit" class="btn btn-primary tweet-button" (click)="replyTweet()" [disabled]="content == ''" style="width: 100%; border-radius: 25px;">Reply</button>
+            </div>
+        </div>
+        <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
+    </div>
+    <div class="col-4">Trends</div>
+</div>

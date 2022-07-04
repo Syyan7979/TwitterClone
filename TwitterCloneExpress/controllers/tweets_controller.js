@@ -20,6 +20,7 @@ const TweetsService = (TweetsRepository) => {
                     body : req.body
                 });
             } catch (error) {
+                console.log(error)
                 res.status(500).json({
                     error : {
                         message : "Internal Server Error"
@@ -61,10 +62,7 @@ const TweetsService = (TweetsRepository) => {
         getTweets : async function(req, res) {
             try {
                 let tweets = await TweetsRepository.getAllTweets();
-                res.status(200).json({
-                    Count : tweets.length,
-                    Data : tweets
-                });
+                res.status(200).send(tweets);
             } catch (error) {
                 res.status(500).json({
                     error : {
@@ -79,9 +77,7 @@ const TweetsService = (TweetsRepository) => {
             try {
                 await TweetsRepository.existenceCheck(req.params.tweetId);
                 let tweet  = await TweetsRepository.getTweet(req.params.tweetId);
-                res.status(200).json({
-                    Data : tweet
-                });
+                res.status(200).send(tweet);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -91,10 +87,7 @@ const TweetsService = (TweetsRepository) => {
             try {
                 await TweetsRepository.existenceCheck(req.params.tweetId);
                 let replies  = await TweetsRepository.tweetReplies(req.params.tweetId);
-                res.status(200).json({
-                    Count : replies.length,
-                    Data : replies
-                });
+                res.status(200).send(replies);
             } catch (error) {
                 ErrorHandling(error, res);
             }
@@ -104,10 +97,7 @@ const TweetsService = (TweetsRepository) => {
             try {
                 await TweetsRepository.existenceCheck(req.params.tweetId);
                 let likers  = await TweetsRepository.tweetLikers(req.params.tweetId);
-                res.status(200).json({
-                    Count : likers.length,
-                    Data : likers
-                });
+                res.status(200).send(likers);
             } catch (error) {
                 ErrorHandling(error, res);
             }

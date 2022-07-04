@@ -1,0 +1,30 @@
+<div class="row py-2 px-3 m-0 tweet-container" (click)="tweetClicked()">
+    <div class="col-auto profile-image">
+        <div class="row m-0">
+            <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()">
+        </div>
+    </div>
+    <div *ngIf="user" class="col-auto contents">
+        <div class="row m-0 content-header">
+            <div class="col-auto user-handle px-0" (click)="userClicked()"><strong>{{user.twitterHandle}}</strong></div>
+            <div class="col-auto user-name px-0 ps-1" (click)="userClicked()" >@{{user.userName}}</div>
+            <div class="col-auto timestamp px-0 ps-1"> &#x2022; {{correctTimeStamp() * 1000 | date}}</div>
+        </div>
+        <div class="row m-0 content">
+            <div class="row content-body p-0">
+                <div class="col">{{tweet.content}}</div>
+            </div>
+            <div class="row content-footer">
+                <div class="col reply">
+                    <img src="https://img.icons8.com/small/512/twitter-reply.png" width="18px" height="18px">
+                </div>
+                <div class="col retwet">
+                    <img src="https://cdn-icons.flaticon.com/png/512/2734/premium/2734827.png?token=exp=1656864562~hmac=163aec22f3e6f0d2f9ee4871c66d58d6" width="18px" height="18px">
+                </div>
+                <div class="col like">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="18px" height="18px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

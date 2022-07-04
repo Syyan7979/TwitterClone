@@ -1,0 +1,64 @@
+<div class="row" style="height: 100%;">
+    <div class="col-8 p-0 main-content">
+        <div class="row m-0 px-3 py-2">
+            <a class="p-0 m-0" style="text-decoration: none; color: black; font-weight: bold">
+                <h5 *ngIf="user" class="p-0 m-0 main">{{user.twitterHandle}}</h5>
+            </a>
+        </div>
+        <div *ngIf="user" class="row m-0 p-0 user-profile">
+            <div class="grid">
+                <div class="row m-0 p-0 user-header" style="background-image: url({{user.headerImage}}); width: 100%; height: auto;"></div>
+                <div class="row m-0 p-0 align-items-center dp-button px-4">
+                    <div class="col-4 p-0 dp-image">
+                        <img src="{{user.profileImage}}" class="img-fluid profile-picture">
+                    </div>
+                    <div class="col-4 mt-5 pt-3 offset-4 p-0 follow-button d-flex justify-content-end">
+                        <button *ngIf="checkIfUser()" class="btn btn-primary follow-button-only" (click)="followClicked()">{{followMessage}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0 p-0 user-details">
+                <div class="row m-0 p-0 mt-3 handle-username px-4">
+                    <div class="row m-0 p-0 px-2 twitter-handle">
+                        <h5 class="p-0 m-0"><strong>{{user.twitterHandle}}</strong></h5>
+                    </div>
+                    <div class="row m-0 p-0 px-2 user-name" style="color: #546572;">
+                        @{{user.userName}}
+                    </div>
+                </div>
+                <div class="row m-0 p-0 date-created px-4 mt-4">
+                    <div class="col-auto p-0 calendar-icon">
+                        <img src="https://img.icons8.com/windows/64/000000/calendar-week.png" width="26px" height="26px"/>
+                    </div>
+                    <div class="col p-0 date">
+                        Joined {{user.timeStamp * 1000 | date}}
+                    </div>
+                </div>
+                <div class="row m-0 p-0 px-4 my-2 followers-followees">
+                    <div *ngIf="followings" class="col-auto p-0 followees"><strong>{{followings.length}}</strong> Following</div>
+                    <div *ngIf="followers" class="col-auto ms-3 p-0 followers"><strong>{{followers.length}}</strong> Followers</div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 p-0 navigation-buttons align-items-end">
+            <div class="col p-0 pt-3 flex-column" (click)="onClick('')">
+                <div class="row m-0 p-0 pb-3 justify-content-center">Tweets</div>
+                <div *ngIf="currentUrl === '/user/{{user.userId}}'" class="row m-0 p-0 highlight-color"></div>
+            </div>
+            <div class="col p-0 pt-3 flex-column" (click)="onClick('with_replies')">
+                <div class="row m-0 p-0 pb-3">Tweets & Replies</div>
+                <div *ngIf="currentUrl === '/user/{{user.userId}}/with_replies'" class="row m-0 p-0 highlight-color"></div>
+            </div>
+            <div class="col p-0 pt-3 flex-column" (click)="onClick('medias')">
+                <div class="row m-0 p-0 pb-3">Media</div>
+                <div *ngIf="currentUrl === '/user/{{user.userId}}/medias'"class="row m-0 p-0 highlight-color"></div>
+            </div>
+            <div class="col p-0 pt-3 flex-column" (click)="onClick('likes')">
+                <div class="row m-0 p-0 pb-3">Likes</div>
+                <div *ngIf="currentUrl === '/user/{{user.userId}}/likes'"class="row m-0 p-0 highlight-color"></div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="col-4">Trends</div>
+</div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User, RegisterUser } from 'src/app/interfaces/user';
+import { RegisterUser } from 'src/app/interfaces/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,11 @@ import { User, RegisterUser } from 'src/app/interfaces/user';
 })
 export class SignupComponent {
   
-  constructor(private userService: UserService, private authService : AuthService) {}
+  constructor(
+    private userService: UserService, 
+    private authService : AuthService, 
+    private router : Router
+  ) {}
 
   public userName = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)] ,this.userService.userAsyncValidator());
   public email = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")], this.userService.userAsyncValidator());
@@ -29,7 +34,11 @@ export class SignupComponent {
       headerImage : "https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg"
     }
     this.authService.registerUser(registerUSer).subscribe(
-      res => console.log(res)
+      res => {
+        console.log(res);
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/home']);
+      }
     );
   }
 

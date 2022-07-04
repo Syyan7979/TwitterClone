@@ -16,7 +16,7 @@ class Tweets {
         try {
             let sql = `CALL get_tweet('${tweetId}')`;
             let [tweet, _] = await db.execute(sql);
-            return tweet[0];
+            return tweet[0][0];
         } catch (error) {
             throw error;
         }

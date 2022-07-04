@@ -1,0 +1,43 @@
+.main-content {
+    border-left : 1px solid #cfd9de;
+    border-right: 1px solid #cfd9de;
+}
+
+.main:hover{
+    cursor: pointer;
+}
+
+.dp-image {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: 1;
+}
+
+.dp-image:hover {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+.time-row {
+    border-bottom : 1px solid #cfd9de;
+}
+
+
+.options-row {
+    border-bottom : 1px solid #cfd9de;
+}
+
+.create-tweet{
+    border-bottom : 1px solid #cfd9de;
+}
+
+.tweet-box {
+    border : none;
+}

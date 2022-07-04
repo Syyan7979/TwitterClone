@@ -1,3 +1,5 @@
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { HomeGuard, LoginGuard } from './guards/auth.guard';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +18,14 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserTweetsComponent } from './components/profile/user-tweets/user-tweets.component';
+import { WithRepliesComponent } from './components/profile/with-replies/with-replies.component';
+import { UserMediasComponent } from './components/profile/user-medias/user-medias.component';
+import { UserLikesComponent } from './components/profile/user-likes/user-likes.component';
+import { UserComponent } from './components/user/user.component';
+import { TweetComponent } from './components/tweet/tweet.component';
+import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +38,15 @@ import { AuthService } from './services/auth.service';
     SignupComponent,
     FeedComponent,
     CreateTweetComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    UserTweetsComponent,
+    WithRepliesComponent,
+    UserMediasComponent,
+    UserLikesComponent,
+    UserComponent,
+    TweetComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +55,13 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}, AuthService],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
+    {provide : HTTP_INTERCEPTORS, useClass : TokenInterceptorService, multi: true}, 
+    AuthService, 
+    HomeGuard, 
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
