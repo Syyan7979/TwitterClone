@@ -1,25 +1,14 @@
-const res = require('express/lib/response');
-const shortid = require('shortid');
-
 const LikesService = (LikesRepository) => {
     const controller = {
         // Establishing a Like between user and tweet.
         createLikes : async function(req, res) {
             try {
-                let like = await LikesRepository.likesExistence(req.body.userId, req.body.tweetId);
-                if (like.length > 0) {
-                    throw new Error("Like already estaablished!");
-                }
-                const newId = shortid.generate();
-                const body = {
-                    userId : req.body.userId,
-                    tweetId : req.body.tweetId,
-                }
-                let newLike = await LikesRepository.insertLike(newId, body);
+                await LikesRepository.insertLike(req.body.liker_id, req.body.tweet_id);
                 res.status(200).json({
                     Data : req.body
                 });
             } catch (error) {
+                console.log(error)
                 ErrorHandling(error, res);
             }
         },
@@ -27,38 +16,21 @@ const LikesService = (LikesRepository) => {
         // Deleting a Like established between user and tweet.
         deleteLike : async function(req, res) {
             try {
-                await LikesRepository.existenceCheck(req.params.likeId);
-                let deletedLike = await LikesRepository.deleteLike(req.params.likeId);
+                await LikesRepository.deleteLike(req.query.userId, req.query.tweetId);
                 res.status(200).json({
                     Message : "successfully deleted like with likeId: " + req.params.followId 
                 })
             } catch (error) {
                 ErrorHandling(error, res);
             }
-        }, 
-    
-        // Getting all the established followings between users.
-        getLikes : async function(req, res) {
-            try {
-                let likes = await LikesRepository.getAllLikes();
-                res.status(200).json({
-                    count: likes.length,
-                    Data : likes
-                });
-            } catch (error) {
-                ErrorHandling(error, res);
-            }
         },
-    
-        // Getting a particular established following between users.
-        getLike : async function(req, res) {
+
+        getLikeExistence : async function(req, res) {
             try {
-                await LikesRepository.existenceCheck(req.params.likeId);
-                let like  = await LikesRepository.getLike(req.params.likeId);
-                res.status(200).json({
-                    Data : like
-                });
+                let existence = await LikesRepository.likesExistenceCheck(req.query.userId, req.query.tweetId);
+                res.status(200).send(existence);
             } catch (error) {
+                console.log(error);
                 ErrorHandling(error, res);
             }
         }

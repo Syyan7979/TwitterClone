@@ -1,0 +1,85 @@
+.navigation h6 {
+    margin-bottom: 0;
+}
+
+.navigation .icon {
+    padding: 0;
+    padding-right: 12px;
+}
+
+.navigation .main-nav {
+    height: 60px;
+}
+
+.dp-image {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: 1;
+}
+
+.navigation {
+    justify-content: space-between;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.home:hover, .profile:hover, .user:hover {
+    background-color: #e7e7e8;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: max-content;
+}
+
+.logo:hover {
+    background-color: #e8f5fd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    .navigation .text {
+        display: none;
+    }
+    .navigation .main-nav {
+        justify-content: center;
+    }
+
+    .navigation .icon {
+        padding: 0;
+    }
+    .handle-name, .ellipsis {
+        display: none;
+    }
+
+    .display-image {
+        justify-content: center;
+    }
+
+    .navigation .hahu {
+        padding: 0;
+        margin-left: auto;
+    }
+
+    .user {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .navigation {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

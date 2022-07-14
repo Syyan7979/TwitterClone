@@ -1,6 +1,15 @@
 .main-content {
     border-left : 1px solid #cfd9de;
     border-right: 1px solid #cfd9de;
+    max-width: 500px;
+}
+
+.sidebar-column {
+    max-width: 350px;
+}
+
+.status {
+    max-width: 870px;
 }
 
 .main:hover{
@@ -24,6 +33,14 @@
     cursor: pointer;
 }
 
+.user-handle:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.user-name:hover{
+    cursor : pointer;
+}
 
 .time-row {
     border-bottom : 1px solid #cfd9de;
@@ -40,4 +57,118 @@
 
 .tweet-box {
     border : none;
+}
+
+.follow-button-only {
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.relevant-people-window{
+    border: 2px solid #eff3f4;
+    padding-top: 8px;
+    border-radius: 23px;
+    width: 320px;
+}
+
+.user-content {
+    border-bottom-left-radius: 23px;
+    border-bottom-right-radius: 23px;
+}
+
+.user-content:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+.heart-image, .retweet-image, .reply-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.heart-image:hover {
+    background-color: #f7e0eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.retweet-image:hover{
+    background-color: #def1eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.reply-image:hover {
+    background-color: #e1eef6;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tweet-media-content .media-img{
+    border-radius: 30px;
+    border: 1px solid #cfd9de;
+    object-fit: cover;
+    width: calc(50% - 16px);
+}
+
+.quoted-tweet-inside {
+    border : 1px solid #cfd9de;
+    border-radius : 25px;
+    max-width: 470px;
+}
+
+.quoted-tweet-inside:hover {
+    background-color: #efefef;
+}
+
+.quoted-tweet {
+    border : 1px solid #cfd9de;
+    border-radius : 25px;
+}
+
+.retweet-user:hover {
+    text-decoration: underline;
+}
+
+.drop-down {
+    position: relative;
+}
+
+.drop-down-menu {
+    position: absolute;
+    left: 0;
+    background-color: white;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+}
+
+.drop-down-menu .text {
+    font-size: x-small;
+}
+
+.drop-down-menu .item:hover{
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1018px) {
+    .sidebar-column {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .main-content {
+        max-width: 575px;
+        width: 100%;
+    }
 }

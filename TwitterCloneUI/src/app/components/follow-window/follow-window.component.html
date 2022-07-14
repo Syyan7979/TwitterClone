@@ -1,0 +1,13 @@
+<div class="row m-3 pt-3 follow-window position-fixed">
+    <div class="col p-0">
+        <div class="row m-0 px-3 window-title">
+            <h5 class="p-0 m-0" >
+                <strong>
+                    {{windowTitle}}
+                </strong>
+            </h5>
+        </div>
+        <app-follow-recommendation *ngFor="let user of threeUsers" [user]="user"></app-follow-recommendation>
+        <div (click)="showMoreCicked()"class="row m-0 show-more align-items-center">show more</div>
+    </div>
+</div>

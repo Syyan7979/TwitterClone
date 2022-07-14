@@ -1,12 +1,15 @@
-<div class="row" style="height: 100%;">
-    <div class="col-8 p-0 main-content">
-        <div class="row m-0 px-3 py-2">
-            <a class="p-0 m-0" style="text-decoration: none; color: black; font-weight: bold">
+<div class="row m-0 home" style="height: 100%;">
+    <div class="col-7 col-md-12 col-sm-12 col-12 p-0 main-content position-relative">
+        <div class="row m-0 p-0 title-seciton position-fixed" style="z-index: 10;">
+            <div class="col-12 p-0 title-background-color position-fixed"></div>
+            <a class="p-0 ps-3 pt-2 m-0 col-12 position-relative" style="text-decoration: none; color: black; font-weight: bold">
                 <h5 class="p-0 m-0 main">Home</h5>
             </a>
         </div>
         <app-create-tweet></app-create-tweet>
         <app-feed></app-feed>
     </div>
-    <div class="col-4">Trends</div>
+    <div class="col-lg-5 p-0 ms-auto sidebar-column">
+        <app-follow-window [windowTitle]="'Who to follow'"></app-follow-window>
+    </div>
 </div>

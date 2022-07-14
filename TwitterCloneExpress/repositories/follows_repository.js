@@ -1,51 +1,58 @@
-const db = require('../data_storage/mysql_data_access');
-
 class Follows {
+
+    constructor(db, Redis) {
+        this.db = db;
+        this.Redis = Redis;
+    }
      
-    static async getAllFollows() {
+    async getAllFollows() {
         try {
             let sql = "CALL get_all_follows()";
-            let [follows, _] = await db.execute(sql);
+            let [follows, _] = await this.db.execute(sql);
             return follows[0];
         } catch (error) {
             throw error;
         }
     };
 
-    static async getFollow(followId) {
+    async getFollow(followerId, followeeId) {
         try {
-            let sql = `CALL get_follow('${followId}')`;
-            let [follow, _] = await db.execute(sql);
-            return follow[0];
+            let sql = `CALL get_follow(?, ?)`;
+            let [follow, _] = await this.db.execute(sql, [followerId, followeeId]);
+            return follow[0][0];
         } catch (error) {
             throw error;
         }
     };
 
-    static insertFollowing(followId, values){
-        let sql = `CALL insert_following('${followId}', '${values.followerId}', '${values.followeeId}')`;
-        return db.execute(sql);
-    };
-
-    static deleteFollowing(followerId, followeeId) {
-        let sql = `CALL delete_following('${followerId}', '${followeeId}')`;
-        return db.execute(sql);
-    };
-
-    static async followingExistence(followerId, followeeId) {
+    async insertFollowing(followerId, followeeId){
         try {
-            let sql = `CALL check_following_existence('${followerId}', '${followeeId}')`;
-            let [follow, _] = await db.execute(sql);
-            return follow[0];
+            console.log(`userId:${followerId}`)
+            await this.Redis.deleteCache(`userId:${followerId}`);
+            let followerQuery = `CALL get_user(?)`
+            let followeeQuery = `CALL get_user(?)`
+            let [follower, _a] = await this.db.execute(followerQuery, [followerId]);
+            let [followee, _b]= await this.db.execute(followeeQuery, [followeeId]);
+            let sql = `CALL insert_following(?, ?, ?, ?, ?, ?, ?, ?)`;
+            return this.db.execute(sql, [followerId, followeeId, follower[0][0].user_name, follower[0][0].twitter_handle, follower[0][0].profile_image, followee[0][0].user_name, followee[0][0].twitter_handle, followee[0][0].profile_image]);
         } catch (error) {
-            throw error;
+            console.log(error);
+            throw error
         }
     };
 
-    static async existenceCheck(followId) {
-        let follow = await this.getFollow(followId);
-        if(follow.length == 0) {
-            throw new Error("Following is not established!");
+    deleteFollowing(followerId, followeeId) {
+        let sql = `CALL delete_following(?, ?)`;
+        return this.db.execute(sql, [followerId, followeeId]);
+    };
+
+    async followingExistence(followerId, followeeId) {
+        try {
+            let sql = `CALL check_following_existence(?, ?)`;
+            let [follow, _] = await this.db.execute(sql, [followerId, followeeId]);
+            return (follow[0].length > 0 ? true : false);
+        } catch (error) {
+            throw error;
         }
     };
 };

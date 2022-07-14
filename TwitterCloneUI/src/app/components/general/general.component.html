@@ -1,20 +1,32 @@
-<div class="container general-container">
-    <div class="row main-row">
-        <div class="col-3">
-            <ul>
-                <li>
-                    <button type="button" class="btn btn-" (click)="showHomePage()">Home</button>
-                </li>
-                <li>
-                    <button type="button" class="btn btn-" (click)="showProfilePage()">Profile</button>
-                </li>
-                <li>
-                    <button *ngIf="authService.loggedIn()" type="button" class="btn btn-" (click)="authService.logoutUser()">Log out</button>
-                </li>
-            </ul>
+<div class="container-fluid general-container p-0 position-relative">
+    <div class="row m-0 p-0 main-row">
+        <div class="col-xl-3 col-lg-2 col-md-3 col-sm-1 m-0 p-0 header">
+            <div class="row m-0 p-0 justify-content-end header-row">
+                <div class="col-auto p-0 position-fixed">
+                    <app-nav></app-nav>
+                </div>
+            </div>
         </div>
-        <div class="col-9">
+        <div class="col-xl-9 col-lg-10 col-md-9 col-sm-11 m-0 p-0 content">
             <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div class="row m-0 p-0 small-screen-nav d-flex flex-row position-fixed" style="z-index: 10;">
+        <div class="col p-0">
+            <div class="row m-0 p-0 background-color-small-nav position-absolute">
+            </div>
+            <div class="row m-0 p-0 nav-icons position-relative justify-content-center">
+                <div class="col-auto home icon align-self-center">
+                    <div class="row m-0 p-0">
+                        <img src="{{homeImg}}" width="30px" height="30px"/>
+                    </div>
+                </div>
+                <div class="col-auto icon align-self-center">
+                    <div class="row m-0 p-0">
+                        <img src="{{profileImg}}" width="30px" height="30px"/></div>
+                    </div>
+                <div class="col-auto p-0 logout"></div>
+            </div>
         </div>
     </div>
 </div>

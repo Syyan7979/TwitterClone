@@ -1,0 +1,17 @@
+.follow-window {
+    background-color: #f7f9f9;
+    border-radius: 23px;
+    width: 350px;
+}
+
+.show-more {
+    border-bottom-left-radius: 23px;
+    border-bottom-right-radius: 23px;
+    padding: 8px 16px;
+    color : #209cf0;
+}
+
+.show-more:hover{
+    background-color: #eff1f1;
+    cursor: pointer;
+}

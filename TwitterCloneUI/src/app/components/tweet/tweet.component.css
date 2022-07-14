@@ -6,9 +6,9 @@
 }
 
 .dp-image:hover {
-    filter: grayscale(1);
-    -webkit-filter: grayscale(1);
-    -moz-filter: grayscale(1);
+    filter: grayscale(0.65);
+    -webkit-filter: grayscale(0.65);
+    -moz-filter: grayscale(0.65);
     transform: scale(1.1);
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
@@ -25,11 +25,6 @@
     width: calc(100% - 60px);
 }
 
-.tweet-container {
-    border-bottom: 1px solid #cfd9de;
-    z-index: -2;
-}
-
 .user-handle:hover {
     text-decoration: underline;
     cursor: pointer;
@@ -38,9 +33,10 @@
 .user-name:hover{
     cursor : pointer;
 }
-.tweet-container:hover{
+.parent-container:hover{
     background-color: #f7f7f7;
     cursor: pointer;
+    z-index : -1;
 }
 
 .user-name {
@@ -48,4 +44,126 @@
 }
 .user-handle {
     z-index: 1;
+}
+
+.parent-container {
+    border-bottom : 1px solid #cfd9de;
+    z-index: -1;
+}
+
+.circle-overlay {
+    width: 35px;
+    height: 35px;
+    background-color: #f7e0eb;
+    border-radius: 50%;
+}
+
+.like .like-count {
+    font-size: small;
+    color: #536471;
+}
+
+.heart-image:hover {
+    background-color: #f7e0eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.retweet-image:hover{
+    background-color: #def1eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.reply-image:hover {
+    background-color: #e1eef6;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.heart-image, .retweet-image, .reply-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.media-img{
+    border-radius: 30px;
+    border: 1px solid #cfd9de;
+    object-fit: cover;
+    margin: 2px;
+    aspect-ratio: 16/9;
+    width: calc(50% - 4px);
+}
+
+.drop-down {
+    position: relative;
+    z-index: 2;
+}
+
+.drop-down-menu {
+    position: absolute;
+    left: 0;
+    background-color: white;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+}
+
+.drop-down-menu .text {
+    font-size: x-small;
+}
+
+.drop-down-menu .item:hover{
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+.close-button {
+    width:13px; 
+    height:13px;
+}
+
+.tweet-box {
+    border: 0;
+}
+
+.dp-image {
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    z-index: inherit;
+}
+
+.media-upload-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.image-upload>input {
+    display: none;
+  }
+
+.media-upload-btn:hover {
+    cursor: pointer;
+}
+
+.quoted-tweet {
+    border : 1px solid #cfd9de;
+    border-radius : 25px;
+}
+
+.retweet-user:hover {
+    text-decoration: underline;
+}
+
+.quoted-tweet-inside {
+    border : 1px solid #cfd9de;
+    border-radius : 25px;
+}
+
+.quoted-tweet-inside:hover {
+    background-color: #efefef;
 }

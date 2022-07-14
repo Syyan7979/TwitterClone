@@ -1,43 +1,5 @@
-const res = require('express/lib/response');
-const shortid = require('shortid');
-
 const FollowsService = (FollowsRepository) => {
     const controller = {
-        // Establishing a following between users.
-        createFollowing : async function(req, res) {
-            try {
-                let follow = await FollowsRepository.followingExistence(req.body.followerId, req.body.followeeId);
-                if (follow.length > 0) {
-                    throw new Error("Following already estaablished!");
-                }
-
-                const newId = shortid.generate();
-                const body = {
-                    followerId : req.body.followerId,
-                    followeeId : req.body.followeeId,
-                }
-                let newFollowing = await FollowsRepository.insertFollowing(newId, body);
-                res.status(200).json({
-                    Data : req.body
-                });
-            } catch (error) {
-                ErrorHandling(error, res);
-            }
-        },
-    
-        // Deleting a following established between users.
-        deleteFollowing : async function(req, res) {
-            try {
-                console.log(req.query.followerId);
-                let deletedFollowing = await FollowsRepository.deleteFollowing(req.query.followerId, req.query.followeeId);
-                res.status(200).json({
-                    Message : "successfully deleted following with followId: " + req.params.followId 
-                })
-            } catch (error) {
-                ErrorHandling(error, res);
-            }
-        }, 
-    
         // Getting all the established followings between users.
         getFollowings : async function(req, res) {
             try {
@@ -58,20 +20,40 @@ const FollowsService = (FollowsRepository) => {
         // Getting a particular established following between users.
         getFollowing : async function(req, res) {
             try {
-                await FollowsRepository.existenceCheck(req.params.followId);
-                let follow = await FollowsRepository.getFollow(req.params.followId);
+                let follow = await FollowsRepository.getFollow(req.query.followerId, req.query.followeeId);
+                res.status(200).json(follow)
+            } catch (error) {
+                ErrorHandling(error, res);
+            }
+        },
+        // Establishing a following between users.
+        createFollowing : async function(req, res) {
+            try {
+                await FollowsRepository.insertFollowing(req.body.follower_id, req.body.followee_id);
                 res.status(200).json({
-                    Data : follow
+                    Data : req.body
                 });
             } catch (error) {
                 ErrorHandling(error, res);
             }
         },
+    
+        // Deleting a following established between users.
+        deleteFollowing : async function(req, res) {
+            try {
+                await FollowsRepository.deleteFollowing(req.query.followerId, req.query.followeeId);
+                res.status(200).json({
+                    Message : "successfully deleted following with followId: " + req.params.followId 
+                })
+            } catch (error) {
+                ErrorHandling(error, res);
+            }
+        }, 
 
         followingExistence : async function(req, res) {
             try {
                 let follow = await FollowsRepository.followingExistence(req.query.followerId, req.query.followeeId);
-                res.status(200).send(follow[0])
+                res.status(200).send(follow)
             } catch (error) {
                 ErrorHandling(error, res);
             }

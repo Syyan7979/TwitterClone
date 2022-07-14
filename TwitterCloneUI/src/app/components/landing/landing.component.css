@@ -1,0 +1,81 @@
+.image-bg {
+    background-image: url("https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png");
+    width: 100%;
+    height: 100vh;
+}
+
+.main-content {
+    font-size: 5vw;
+}
+
+.sign-up-text {
+    font-size: 3vw;
+    margin-bottom: 36px;
+}
+
+.sign-in-text {
+    font-size: 2vw;
+    margin-bottom: 20px;
+}
+
+.title-text-controller {
+    margin: 48px 0;
+}
+
+.content-section {
+    height: 100vh;
+}
+
+.sign-in {
+    margin: 0;
+    margin-top: 40px;
+}
+
+.sign-up-button {
+    width: 55%;
+    border-radius: 50px;
+    background-color: #1d9bf0;
+    color : white;
+    border-color: #1d9bf0;
+}
+
+.sign-in-button {
+    width: 55%;
+    border-radius: 50px;
+    background-color: white; 
+    color : #1d9bf0;
+    border: 2px solid #eff1f1;
+}
+
+.sign-in-button:hover {
+    background-color: #e8f5fd;
+    cursor: pointer;
+}
+
+.sign-up-button:hover {
+    background-color: #1a8cd8;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    .image-bg{
+        height: 30%;
+    }
+
+    .content-section {
+        width: 100%;
+        height: 100%;
+    }
+
+    .main-content {
+        font-size: 10vw;
+    }
+    
+    .sign-up-text {
+        font-size: 7vw;
+    }
+    
+    .sign-in-text {
+        font-size: 4vw;
+    }
+}

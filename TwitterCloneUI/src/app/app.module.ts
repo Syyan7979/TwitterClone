@@ -26,6 +26,14 @@ import { UserLikesComponent } from './components/profile/user-likes/user-likes.c
 import { UserComponent } from './components/user/user.component';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { StatusComponent } from './components/status/status.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { FollowRecommendationComponent } from './components/follow-recommendation/follow-recommendation.component';
+import { FollowWindowComponent } from './components/follow-window/follow-window.component';
+import { ConnectComponent } from './components/connect/connect.component';
+import { FollowersComponent } from './components/followers/followers.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { FollowingsComponent } from './components/followings/followings.component';
+import { HashtagPipe } from './pipes/hashtag.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +54,15 @@ import { StatusComponent } from './components/status/status.component';
     UserLikesComponent,
     UserComponent,
     TweetComponent,
-    StatusComponent
+    StatusComponent,
+    NavigationComponent,
+    FollowRecommendationComponent,
+    FollowWindowComponent,
+    ConnectComponent,
+    FollowersComponent,
+    ClickOutsideDirective,
+    FollowingsComponent,
+    HashtagPipe
   ],
   imports: [
     BrowserModule,

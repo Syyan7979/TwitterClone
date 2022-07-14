@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tweet } from 'src/app/interfaces/tweet';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
   selector: 'app-user-likes',
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UserLikesComponent implements OnInit {
 
   tweets : Tweet[] = []
-  constructor(private userService : UserService, 
+  constructor(private tweetService : TweetService, 
     private route : ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,7 +20,7 @@ export class UserLikesComponent implements OnInit {
 
   getTweets() : void {
     let id : string = String(this.route.parent?.snapshot.paramMap.get('userId'))
-    this.userService.getLikedTweets(id).subscribe(value => this.tweets = value);
+    this.tweetService.getUserLikes(id).subscribe(value => this.tweets = value);
   }
 
 }

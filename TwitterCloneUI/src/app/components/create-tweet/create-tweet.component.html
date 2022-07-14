@@ -1,19 +1,32 @@
-<div class="row px-3 py-2 m-0 create-tweet">
+<div class="row px-3 py-2 m-0 mt-5 create-tweet" style="z-index: -1;">
     <div class="col-auto profile-image">
         <div class="row m-0">
-            <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()">
+            <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()">
         </div>
     </div>
     <div class="col new-tweet">
         <div class="row m-0">
             <div class="form-floating p-0">
                 <textarea [(ngModel)]="content" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
-                <label for="floatingTextarea2">What's Happening?</label>
+                <label *ngIf="content === ''" for="floatingTextarea2">What's Happening?</label>
               </div>
+              
+        </div>
+        <div *ngIf="selectedImages.length != 0" class="row-cols-2 p-2 m-0">
+            <img *ngFor="let image of selectedImages" class="col selected-image" src="{{image}}">
         </div>
         <div class="row m-0 justify-content-end">
+            <div class="col p-0 media-upload d-flex align-items-center">
+                <div class="image-upload">
+                    <label for="file-input">
+                      <img class="media-upload-btn" src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/96/1d9bf0/external-upload-image-multimedia-tanah-basah-basic-outline-tanah-basah.png"/>
+                    </label>
+                  
+                    <input id="file-input" type="file"  (change)="fileSelected($event)" multiple="multiple" accept="image/*"/>
+                  </div>
+            </div>
             <div class="col-auto p-0 mt-2">
-                <button type="submit" class="btn btn-primary tweet-button" (click)="newTweet()" [disabled]="content == ''" style="width: 100%; border-radius: 25px;">Tweet</button>
+                <button type="submit" class="btn btn-primary tweet-button" (click)="newTweet()" [disabled]="content == '' && selectedFiles.length == 0" style="width: 100%; border-radius: 25px;">Tweet</button>
             </div>
         </div>
     </div>

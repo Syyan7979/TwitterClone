@@ -1,6 +1,15 @@
 .main-content {
     border-left : 1px solid #cfd9de;
     border-right: 1px solid #cfd9de;
+    max-width: 500px;
+}
+
+.sidebar-column {
+    max-width: 350px;
+}
+
+.profile {
+    max-width: 870px;
 }
 
 .main:hover{
@@ -19,16 +28,16 @@
 
 .grid {
     display: grid;
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     padding:0;
 }
 
 .user-header {
-    grid-row: 1/6;
+    grid-row: 1/5;
 }
 
 .dp-button {
-    grid-row: 4/-1;
+    grid-row: 3/-1;
 }
 
 .user-header, .dp-button {
@@ -37,6 +46,10 @@
 
 .profile-picture {
     border: 5px solid white;
+    background-color: #b7bec8;
+    max-width: 150px;
+    min-width: 150px;
+    aspect-ratio: 1/1;
 }
 
 .follow-button-only {
@@ -52,9 +65,9 @@
 
 .profile-picture:hover {
     cursor: pointer;
-    filter: grayscale(1);
-    -webkit-filter: grayscale(1);
-    -moz-filter: grayscale(1);
+    filter: grayscale(0.65);
+    -webkit-filter: grayscale(0.65);
+    -moz-filter: grayscale(0.65);
 }
 
 .navigation-buttons >*:hover {
@@ -74,4 +87,22 @@
 
 .flex-column .row {
     justify-content: center;
+}
+
+.followees:hover, .followers:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+    .sidebar-column {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .main-content {
+        max-width: 575px;
+        width: 100%;
+    }
 }

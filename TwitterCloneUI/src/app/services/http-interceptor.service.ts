@@ -31,6 +31,9 @@ export class HttpInterceptorService implements HttpInterceptor{
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            window.alert(error.error.message)
+          }
           return throwError(() => error.message);
         } else {
           return throwError(() => error);

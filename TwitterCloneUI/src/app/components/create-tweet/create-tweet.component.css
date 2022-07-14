@@ -30,6 +30,10 @@
 
 .tweet-button {
     background-color: #1ea5ff;
+    border-color: #1ea5ff;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .tweet-box {
@@ -39,6 +43,7 @@
 
 .tweet-button:hover{
     background-color: #1a8cd8;
+    border-color: #1a8cd8;
 }
 
 .refresh-page {
@@ -50,4 +55,23 @@
 .refresh-page:hover {
     background-color: #f7f7f7;
     cursor: pointer;
+}
+
+.media-upload-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.image-upload>input {
+    display: none;
+  }
+
+.media-upload-btn:hover {
+    cursor: pointer;
+}
+
+.selected-image{
+    object-fit: cover;
+    padding: 5px;
+    aspect-ratio: 16/9;
 }

@@ -1,1 +1,48 @@
-<p>nav works!</p>
+<div class="row m-0 navigation d-flex flex-column" style="height: 100vh;">
+    <div class="row m-0 p-0">
+        <div class="col-auto hahu">
+            <div class="row m-0 p-0 main-nav" (click)="homeClicked()">
+                <div class="col-auto p-2 align-self-center logo">
+                    <img src="https://img.icons8.com/color/96/000000/twitter--v1.png" width="30px" height="30px"/>
+                </div>
+            </div>
+            <div class="row m-0 px-2 main-nav home" (click)="homeClicked()">
+                <div class="col-auto icon align-self-center">
+                    <img src="{{homeImg}}" width="30px" height="30px"/>
+                </div>
+                <div class="col-auto p-0 text align-self-center">
+                    <h6 class="home-text">Home</h6>
+                </div>
+            </div>
+            <div class="row m-0 px-2 main-nav profile" (click)="profileClicked()">
+                <div class="col-auto icon align-self-center">
+                    <img src="{{profileImg}}" width="30px" height="30px"/>
+                </div>
+                <div class="col-auto p-0 text align-self-center">
+                    <h6 class="profile-text">Profile</h6>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div (click)="userClicked()" class="row m-0 mb-2 main-nav user align-items-center">
+        <div class="col-auto m-0 p-0 profile-image">
+            <div class="row m-0 p-0">
+                <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0">
+            </div>
+        </div>
+        <div *ngIf="user" class="col-auto m-0 p-0 ms-3 handle-name">
+            <div class="row m-0 p-0 content-header">
+                <div class="col p-0">
+                    <div class="row user-handle m-0 p-0" ><strong class="p-0">{{user.twitter_handle}}</strong></div>
+                    <div class="row m-0 p-0 user-name">@{{user.user_name}}</div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-auto ps-4 m-0 ellipsis">
+            <img src="https://img.icons8.com/ios-glyphs/60/000000/ellipsis.png" width="17px" height="17px"/>
+        </div>
+    </div>
+</div>

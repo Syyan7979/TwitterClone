@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { FollowingService } from 'src/app/services/following.service';
 import { Follow, FollowCheck } from 'src/app/interfaces/follow';
-import { Observable, Subject} from 'rxjs'
 import { Location } from '@angular/common';
 
 @Component({
@@ -16,8 +15,8 @@ import { Location } from '@angular/common';
 })
 export class ProfileComponent implements OnInit {
   
-  public user: User | undefined;
-  public following? : Follow;
+  user: User | undefined;
+  following? : boolean;
   followers ?: User[];
   followings ?: User[];
   followMessage : string = "Follow"
@@ -34,7 +33,7 @@ export class ProfileComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
-    this.currentUrl = location.path();
+    this.currentUrl = this.location.path();
    }
 
   ngOnInit(): void {
@@ -52,7 +51,7 @@ export class ProfileComponent implements OnInit {
   }
 
   checkIfUser() : boolean {
-    return this.authService.parsedToken() !== this.user?.userId;
+    return this.authService.parsedToken() !== this.user?.user_id;
   }
 
   onClick(route : string) : void {
@@ -65,8 +64,8 @@ export class ProfileComponent implements OnInit {
 
   checkIfFollowing() : void {
     let body : FollowCheck = {
-      followerId : this.authService.parsedToken(),
-      followeeId : String(this.route.snapshot.paramMap.get('userId'))
+      follower_id : this.authService.parsedToken(),
+      followee_id : String(this.route.snapshot.paramMap.get('userId'))
     }
     this.followingService.checkFollowing(body).subscribe(
       res => {this.following = res;
@@ -79,26 +78,59 @@ export class ProfileComponent implements OnInit {
   }
 
   followClicked() : void {
-    let body : FollowCheck = {
-      followerId : this.authService.parsedToken(),
-      followeeId : String(this.route.snapshot.paramMap.get('userId'))
-    }
-    if (this.following) {
-      this.followingService.deleteFollow(body).subscribe();
-      this.followMessage = "Follow"
+    if (this.authService.loggedIn()) {
+      let body : FollowCheck = {
+        follower_id : this.authService.parsedToken(),
+        followee_id : String(this.route.snapshot.paramMap.get('userId'))
+      }
+      if (this.following) {
+        this.followingService.deleteFollow(body).subscribe();
+        this.followMessage = "Follow"
+        this.following = false;
+      } else {
+        this.followingService.createFollow(body).subscribe();
+        this.followMessage = "Following"
+        this.following = true;
+      }
     } else {
-      this.followingService.createFollow(body).subscribe();
-      this.followMessage = "Following"
+      this.router.navigate(['/login']);
     }
   }
 
   getFollowers() : void {
-    this.userService.getFollowers(this.user?.userId).subscribe(res => this.followers = res);
+    this.userService.getFollowers(this.user?.user_id).subscribe(res => this.followers = res);
   }
 
   getFollowings() : void {
-    this.userService.getFollowings(this.user?.userId).subscribe(res => this.followings = res);
+    this.userService.getFollowings(this.user?.user_id).subscribe(res => this.followings = res);
   }
 
-  
+  followTypeClicked(name : string) : void {
+    let id = String(this.route.snapshot.paramMap.get('userId'));
+      this.router.navigate([`/user/${id}/${name}`], { relativeTo: this.route.root});
+  }
+
+  followBGColor() : string {
+    if (this.following) {
+      return 'white'
+    } else {
+      return 'black';
+    }
+  }
+
+  followBorderColor() : string {
+    if (this.following) {
+      return 'darkgrey';
+    } else {
+      return 'black';
+    }
+  }
+
+  followTextColor() : string {
+    if (this.following) {
+      return 'black';
+    } else {
+      return 'white';
+    }
+  }
 }

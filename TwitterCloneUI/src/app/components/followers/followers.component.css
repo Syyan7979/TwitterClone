@@ -1,0 +1,30 @@
+.main-content {
+    border-left : 1px solid #cfd9de;
+    border-right: 1px solid #cfd9de;
+    max-width: 500px;
+}
+
+.sidebar-column {
+    max-width: 350px;
+}
+
+.connect {
+    max-width: 870px;
+}
+
+.main:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1020px) {
+    .sidebar-column {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .main-content {
+        max-width: 575px;
+        width: 100%;
+    }
+}

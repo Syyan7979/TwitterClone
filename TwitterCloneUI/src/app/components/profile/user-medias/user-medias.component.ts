@@ -1,7 +1,7 @@
+import { TweetService } from 'src/app/services/tweet.service';
 import { Tweet } from 'src/app/interfaces/tweet';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-medias',
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UserMediasComponent implements OnInit {
 
   tweets : Tweet[] = []
-  constructor(private userService : UserService, 
+  constructor(private tweetService : TweetService, 
     private route : ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,7 +20,7 @@ export class UserMediasComponent implements OnInit {
 
   getTweets() : void {
     let id : string = String(this.route.parent?.snapshot.paramMap.get('userId'))
-    this.userService.getUserTweetsWithMedia(id).subscribe(value => this.tweets = value);
+    this.tweetService.getUserMedias(id).subscribe(value => this.tweets = value);
   }
 
 }

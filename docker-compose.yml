@@ -13,6 +13,8 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=Gengwapa7979
+      - REDIS_host=redis-container
+      - REDIS_port=6379
     depends_on:
       - db_server
     command: "bash start.sh db_server:3306"
@@ -29,3 +31,8 @@ services:
       - 4202:4200
     volumes:
       - ./TwitterCloneUI/:/app
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    container_name: redis-container

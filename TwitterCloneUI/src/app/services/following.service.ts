@@ -12,8 +12,8 @@ export class FollowingService {
 
   constructor( private http : HttpClient) { }
 
-  checkFollowing( following : FollowCheck ) : Observable<Follow> {
-    return this.http.get<Follow>(this.followUrl + `?followerId=${following.followerId}&followeeId=${following.followeeId}`);
+  checkFollowing( following : FollowCheck ) : Observable<boolean> {
+    return this.http.get<boolean>(this.followUrl + `?followerId=${following.follower_id}&followeeId=${following.followee_id}`);
   }
 
   createFollow( following : FollowCheck) : Observable<Follow> {
@@ -21,6 +21,6 @@ export class FollowingService {
   }
 
   deleteFollow (following : FollowCheck) : Observable<Follow> {
-    return this.http.delete<Follow>(this.followUrl + `?followerId=${following.followerId}&followeeId=${following.followeeId}`);
+    return this.http.delete<Follow>(this.followUrl + `?followerId=${following.follower_id}&followeeId=${following.followee_id}`);
   }
 }

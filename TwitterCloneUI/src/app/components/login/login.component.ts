@@ -22,19 +22,18 @@ export class LoginComponent implements OnInit {
 
   signIn() : void { 
     let loginUser : LoginUser = {
-      userName : null,
-      email : null,
-      password : this.password.value,
+      user_name : null,
+      user_email : null,
+      user_password : this.password.value,
     }
     let pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
     if (this,this.userName_email.value?.match(pattern) == null) {
-      loginUser.userName = this.userName_email.value;
+      loginUser.user_name = this.userName_email.value;
     } else {
-      loginUser.email = this.userName_email.value;
+      loginUser.user_email = this.userName_email.value;
     }
     this.authService.loginUser(loginUser).subscribe(
       res => {
-        console.log(res);
         localStorage.setItem('token', res.token);
         this.router.navigate(['/home']);
       }

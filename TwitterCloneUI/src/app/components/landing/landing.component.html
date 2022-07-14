@@ -1,8 +1,45 @@
-<div class="container">
-    <div class="row">
-        <button (click)="onSignup()" type="button">Sign up</button>
+<div class="row m-0 p-0 justify-content-center align-items-center d-flex flex-column-reverse" style="height: 100vh;">
+    <div class="col-xl-6 col-lg-4 col-md-12 p-0 image-section">
+        <div class="row m-0 p-0 image-bg"></div>
     </div>
-    <div class="row">
-        <button (click)="onLogin()" type="button">Sign in</button>
+    <div class="col-xl-6 col-lg-8 col-md-12 p-5 content-section">
+        <div class="row m-0 p-0 logo">
+            <img class="col-auto p-0"src="https://img.icons8.com/color/96/000000/twitter--v1.png" width="45px" height="45px"/>
+        </div>
+        <div class="row p-0 title-text-controller">
+            <h1 class="p-0 m-0">
+                <strong class="p-0 m-0 main-content">
+                    Happening now
+                </strong>
+            </h1>
+        </div>
+        <div class="row m-0 p-0 sign-up">
+            <div class="col p-0">
+                <h1 class="row p-0 m-0">
+                    <strong class="p-0 sign-up-text">
+                        Join chirpy today.
+                    </strong>
+                </h1>
+                <div class="row m-0 p-0">
+                    <button (click)="onSignup()" class="col-auto mb-2 btn btn-primary sign-up-button">
+                        Sign up
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row p-0 sign-in">
+            <div class="col p-0">
+                <h4 class="row p-0 m-0">
+                    <strong class="p-0 sign-in-text">
+                        Already have an account?
+                    </strong>
+                </h4>
+                <div class="row m-0 p-0">
+                    <button (click)="onLogin()" class="col-auto mb-2 btn btn-primary sign-in-button">
+                        Sign in
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

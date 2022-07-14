@@ -19,22 +19,41 @@ export class CreateTweetComponent implements OnInit {
   content = ''
   newTweets = 0;
 
+  selectedFiles : File[] = [];
+  selectedImages : unknown[] = [];
+
   ngOnInit(): void {
     this.getUser();
     this.newTweets = 0;
   }
 
   newTweet() {
-    let body : NewTweet = {
-      userId : this.authService.parsedToken(),
-      replyId : null,
-      content : this.content,
-      media : null,
-      likes : 0
-    }
-    this.tweetService.newTweet(body).subscribe();
-    this.content = '';
-    this.newTweets += 1
+    let fd = new FormData();
+    this.selectedFiles.forEach((file) => { fd.append('images', file, file.name) })
+    this.tweetService.uploadPhotos(fd).subscribe(
+      res => {
+        let body : NewTweet = {
+          user_id : this.authService.parsedToken(),
+          reply_id : null,
+          content : this.content,
+          media : res === 'null'? res : JSON.stringify(res),
+          likes : 0,
+          user_name : this.user.user_name,
+          twitter_handle : this.user.twitter_handle,
+          profile_image : this.user.profile_image,
+          retweet_id : null,
+          retweet_user_id : null,
+          retweet_twitter_handle : null,
+          quote_tweet_id : null,
+          retweet_quoute_count : 0
+        }
+        this.tweetService.newTweet(body).subscribe();
+        this.content = '';
+        this.newTweets += 1
+        this.selectedFiles = [];
+        this.selectedImages = [];
+      }
+    );
   }
 
   getUser() : void {
@@ -48,6 +67,29 @@ export class CreateTweetComponent implements OnInit {
   onClickShowTweets() : void {
     this.newTweets = 0;
     window.location.reload();
+  }
+
+  async fileSelected(event : any) {
+    if (this.selectedFiles.length < 4 && this.selectedFiles.length + event.target.files.length <= 4) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.selectedFiles.push(<File>event.target.files[i])
+      }
+      let images = await Promise.all(this.selectedFiles.map(f=>{return this.readAsDataURL(f)}));
+      this.selectedImages = images;
+      console.log(this.selectedImages)
+    } else {
+      window.alert("Please choose up to 4 photos")
+    }
+  }
+
+  readAsDataURL(file : File) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.onload = function() {
+        return resolve(reader.result);
+      }
+      reader.readAsDataURL(file);
+    })
   }
 
 }

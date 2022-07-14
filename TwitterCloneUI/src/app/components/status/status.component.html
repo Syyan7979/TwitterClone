@@ -1,46 +1,106 @@
-<div class="row" style="height: 100%;">
-    <div class="col-8 p-0 main-content">
+<div class="row m-0 p-0 status" style="height: 100%;">
+    <div class="col-7 col-md-12 col-sm-12 col-12 p-0 main-content">
         <div class="row m-0 px-3 py-2">
             <a class="p-0 m-0" style="text-decoration: none; color: black; font-weight: bold">
                 <h5 class="p-0 m-0 main">Tweet</h5>
             </a>
         </div>
-        <div *ngIf="tweet" class="row m-0 p-0 the-tweet">
+        <div *ngIf="tweet" class="row m-0 p-0 the-tweet justify-content-center">
+            <div *ngIf="tweet.retweet_id" class="row m-0 ms-4 ps-3 pt-1 retweet-field">
+                <div class="col-auto p-0 d-flex align-items-center">
+                    <img (click)="userClicked(tweet.retweet_user_id)" src="https://img.icons8.com/material-rounded/96/536471/retweet.png" width="18px" height="18px" (mouseleave)="tweetClickAvailable=true" (mouseenter)="tweetClickAvailable=false">
+                </div>
+                <div class="col-auto p-0 ms-2 retweet-user">
+                    {{ tweet.retweet_user_id === authService.parsedToken() ? 'you' : tweet.retweet_twitter_handle}} Retweeted
+                </div>
+            </div>
             <div class="row m-0 p-0 user-row px-3 py-2">
-                <div class="col-auto m-0 p-0 me-3 profile-image">
+                <div *ngIf="user" class="col-auto m-0 p-0 me-3 profile-image">
                     <div class="row m-0 p-0">
-                        <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0">
+                        <img (click)="userClicked(user.user_id)" *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0">
                     </div>
                 </div>
                 <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
                     <div class="row m-0 p-0 content-header">
-                        <div class="row user-handle m-0 p-0" ><strong class="p-0">{{user.twitterHandle}}</strong></div>
-                        <div class="row m-0 p-0 user-name">@{{user.userName}}</div>
+                        <div (click)="userClicked(user.user_id)" class="row user-handle m-0 p-0" ><strong class="p-0">{{user.twitter_handle}}</strong></div>
+                        <div (click)="userClicked(user.user_id)" class="row m-0 p-0 user-name">@{{user.user_name}}</div>
                     </div>
                 </div>
             </div>
             <div *ngIf="user" class="row m-0 p-0 px-3 py-2 content-row">
                 <div class="col m-0 p-0">{{tweet.content}}</div>
             </div>
+            <div *ngIf="tweet.media !== 'null' && tweet.media !== null" class="row-cols-2 m-0 p-0 px-3 tweet-media-content flex-row justify-content-center align-items-center">
+                <img *ngFor="let media of tweetMedias" class="col media-img p-0 m-2 " src="{{media}}">
+            </div>
+            <div *ngIf="quotedTweet" class="row m-0 px-3 pt-2 quoted-tweet-inside" (click)="quoutedTweetClicked()" (mouseenter)="tweetClickAvailable=false" (mouseleave)="tweetClickAvailable=true">
+                <div class="col-auto p-0">
+                    <div class="row m-0 content-header">
+                        <div class="col-auto quote-user-handle px-0" ><strong>{{quotedTweet.twitter_handle}}</strong></div>
+                        <div class="col-auto quote-user-name px-0 ps-1" >@{{quotedTweet.user_name}}</div>
+                        <div class="col-auto timestamp px-0 ps-1"> &#x2022; {{quotedTweet.time_stamp * 1000 | date}}</div>
+                    </div>
+                    <div class="row m-0 p-0 content">
+                        <div class="col-auto p-0">
+                            <div class="row content-body m-0 p-0">
+                                <div class="col-auto p-0">{{quotedTweet.content}}</div>
+                            </div>
+                            <div *ngIf="quotedTweet.media !== 'null' && quotedTweet.media !== null" class="row-cols-2 m-0 p-0 py-2 media-content justify-content-start">
+                                <img *ngFor="let media of quotedTweetMedias" class="col quote-media-img p-0" src="{{media}}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row m-0 p-0 time-row px-3 py-2">
-                {{correctTimeStamp() | date}}
+                {{tweet.time_stamp * 1000 | date}}
             </div>
             <div class="row m-0 p-0 px-3 py-1 options-row">
-                <div class="col p-0 m-0 reply d-flex justify-content-center align-items-center">
-                    <img src="https://img.icons8.com/small/512/twitter-reply.png" width="18px" height="18px">
+                <div class="col p-0 reply">
+                    <div class="row m-0 p-0 justify-content-center">
+                        <div class="col-auto reply-image">
+                            <img src="https://img.icons8.com/small/64/536471/twitter-reply.png" width="18px" height="18px">
+                        </div>
+                    </div>
                 </div>
-                <div class="col p-0 m-0 retwet d-flex justify-content-center align-items-center">
-                    <img src="https://cdn-icons.flaticon.com/png/512/2734/premium/2734827.png?token=exp=1656864562~hmac=163aec22f3e6f0d2f9ee4871c66d58d6" width="18px" height="18px">
+                <div class="col p-0 retwet drop-down-container" clickOutside (clickOutside)="clickedOutside()">
+                    <div class="row m-0 p-0 drop-down d-flex justify-content-center">
+                        <div *ngIf="retweetClicked"class="col p-0 drop-down-menu" >
+                            <div (click)="Retweet()" class="row m-0 p-3 item retweet" [ngStyle]="{'color' : retweeted? '#00ba7c' : '#536471'}" (mouseleave)="tweetClickAvailable=true" (mouseenter)="tweetClickAvailable=false">
+                                <div class="col-auto p-0 me-2 icon d-flex justify-content-start">
+                                    <img src="{{retweetImgUrl}}" width="18px" height="18px">
+                                </div>
+                                <div class="col p-0 text">
+                                    {{retweeted? 'Undo Retweet' : 'Retweet'}}
+                                </div>
+                            </div>
+                            <div class="row m-0 p-3 item quoute-tweet" data-bs-toggle="modal" data-bs-target="#reg-modal" (mouseleave)="tweetClickAvailable=true" (mouseenter)="tweetClickAvailable=false">
+                                <div class="col-auto p-0 me-2 icon d-flex justify-content-start">
+                                    <img src="https://img.icons8.com/material-outlined/96/536471/pencil--v1.png" width="18px" height="18px"/>
+                                </div>
+                                <div class="col p-0 text">
+                                    Quote tweet
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto retweet-image d-flex" (click)="onRetweetClicked()" (mouseleave)="tweetClickAvailable=true" (mouseenter)="tweetClickAvailable=false">
+                            <img src="{{retweetImgUrl}}" width="18px" height="18px">
+                        </div>
+                    </div>
                 </div>
-                <div class="col p-0 m-0 like d-flex justify-content-center align-items-center">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="18px" height="18px">
+                <div class="col p-0 like">
+                    <div class="row m-0 p-0 justify-content-center">
+                        <div class="col-auto heart-image p-0">
+                            <img  (click)="clickLike()" src="{{likedImgUrl}}" width="18px" height="18px" (mouseleave)="tweetClickAvailable=true" (mouseenter)="tweetClickAvailable=false">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row px-3 py-2 m-0 create-tweet align-items-center">
+        <div class="row px-3 py-2 m-0 create-tweet align-items-center position-relative" [ngStyle]="{'z-index' : retweetClicked? '-1' : '0'}">
             <div class="col-auto p-0 profile-image">
                 <div class="row m-0">
-                    <img *ngIf="user" src="{{user.profileImage}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()">
+                    <img *ngIf="mainUser" src="{{mainUser.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked(mainUser.user_id)">
                 </div>
             </div>
             <div class="col new-tweet">
@@ -57,5 +117,42 @@
         </div>
         <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
     </div>
-    <div class="col-4">Trends</div>
+    <div class="col-lg-5 p-0 ms-auto sidebar-column">
+        <div class="row m-3 relevant-people-window position-fixed">
+            <div class="col p-0">
+                <div class="row m-0 px-3 window-title">
+                    <h5 class="p-0 m-0" >
+                        <strong>
+                            Relevant people
+                        </strong>
+                    </h5>
+                </div>
+                <div class="row m-0 p-3 user-content">
+                    <div class="col-auto m-0 p-0 me-3 profile-image">
+                        <div class="row m-0 p-0">
+                            <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked(user.user_id)">
+                        </div>
+                    </div>
+                    <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
+                        <div class="row m-0 p-0 content-header">
+                            <div class="col-auto p-0">
+                                <div class="row user-handle m-0 p-0" ><strong class="p-0" (click)="userClicked(user.user_id)">{{user.twitter_handle}}</strong></div>
+                                <div class="row m-0 p-0 user-name" (click)="userClicked(user.user_id)" >@{{user.user_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="user && mainUser && user.user_id != mainUser.user_id" class="col-auto m-0 p-0 ms-auto follow-button d-flex justify-content-center">
+                        <button 
+                            [ngStyle]="{'background-color' : followBGColor(), 'color' : followTextColor(), 'border-color' : followBorderColor()}" 
+                            *ngIf="user" 
+                            class="btn btn-primary follow-button-only text-center" 
+                            (click)="followClicked()" 
+                            (mouseleave)="followRecoClickable=true" 
+                            (mouseenter)="followRecoClickable=false">{{followMessage}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

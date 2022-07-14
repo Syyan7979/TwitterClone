@@ -1,26 +1,25 @@
 export interface User {
-    "userId" : string;
-    "userID" : string;
-    "userName" : string;
-    "twitterHandle" : string;
-    "email" : string;
-    "password" : string;
-    "profileImage" : string;
-    "headerImage" : string;
-    "timeStamp" : number;
+    "user_id" : string;
+    "user_name" : string;
+    "twitter_handle" : string;
+    "user_email" : string;
+    "user_password" : string;
+    "profile_image" : string;
+    "header_image" : string;
+    "time_stamp" : number;
 }
 
 export interface RegisterUser {
-    "userName" : string | null;
-    "twitterHandle" : string | null;
-    "email" : string | null;
-    "password" : string | null;
-    "profileImage" : string | null;
-    "headerImage" : string | null;
+    "user_name" : string | null;
+    "twitter_handle" : string | null;
+    "user_email" : string | null;
+    "user_password" : string | null;
+    "profile_image" : string | null;
+    "header_image" : string | null;
 }
 
 export interface LoginUser {
-    "userName" : string | null;
-    "email" : string | null;
-    "password" :  string | null;
+    "user_name" : string | null;
+    "user_email" : string | null;
+    "user_password" :  string | null;
 }

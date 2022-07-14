@@ -26,12 +26,12 @@ export class SignupComponent {
 
   createAccount(): void {
     let registerUSer : RegisterUser = {
-      userName : this.userName.value,
-      twitterHandle : this.userName.value,
-      email : this.email.value,
-      password : this.password.value,
-      profileImage : "https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png",
-      headerImage : "https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg"
+      user_name : this.userName.value,
+      twitter_handle : this.userName.value,
+      user_email : this.email.value,
+      user_password : this.password.value,
+      profile_image : "https://i.pinimg.com/originals/e5/91/dc/e591dc82326cc4c86578e3eeecced792.png",
+      header_image : "https://jannaschreier.files.wordpress.com/2012/03/website-header-blue-grey-background.jpg"
     }
     this.authService.registerUser(registerUSer).subscribe(
       res => {

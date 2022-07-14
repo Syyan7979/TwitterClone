@@ -1,0 +1,23 @@
+<div class="row m-0 p-0 user-row p-3" (click)="userContainerClicked()">
+    <div class="col-auto m-0 p-0 me-3 profile-image">
+        <div class="row m-0 p-0">
+            <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked()" (mouseleave)="followRecoClickable=true" (mouseenter)="followRecoClickable=false">
+        </div>
+    </div>
+    <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
+        <div class="row m-0 p-0 content-header">
+            <div class="row user-handle m-0 p-0" ><strong class="p-0" (click)="userClicked()" (mouseleave)="followRecoClickable=true" (mouseenter)="followRecoClickable=false">{{user.twitter_handle}}</strong></div>
+            <div class="row m-0 p-0 user-name" (click)="userClicked()" (mouseleave)="followRecoClickable=true" (mouseenter)="followRecoClickable=false">@{{user.user_name}}</div>
+        </div>
+    </div>
+    <div class="col-auto m-0 p-0 ms-auto follow-button d-flex justify-content-center">
+        <button 
+            [ngStyle]="{'background-color' : followBGColor(), 'color' : followTextColor(), 'border-color' : followBorderColor()}" 
+            *ngIf="user" 
+            class="btn btn-primary follow-button-only text-center" 
+            (click)="followClicked()" 
+            (mouseleave)="followRecoClickable=true" 
+            (mouseenter)="followRecoClickable=false">{{followMessage}}
+        </button>
+    </div>
+</div>

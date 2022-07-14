@@ -1,8 +1,37 @@
 .main-content {
     border-left : 1px solid #cfd9de;
     border-right: 1px solid #cfd9de;
+    max-width: 500px;
 }
 
 .main:hover{
     cursor: pointer;
+}
+
+.sidebar-column {
+    max-width: 350px;
+}
+
+.home {
+    max-width: 870px;
+}
+
+.title-background-color {
+    height: 45px;
+    width: 500px;
+    background-color: rgba(255,255,255,0.9);
+    filter: blur(1);
+}
+
+@media only screen and (max-width: 1000px) {
+    .sidebar-column {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .main-content {
+        max-width: 575px;
+        width: 100%;
+    }
 }

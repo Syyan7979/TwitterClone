@@ -1,11 +1,10 @@
 export interface Follow {
-    "followId" : string;
-    "followerId" : string;
-    "followeeId" : string;
-    "timestamp" : number
+    "follower_id" : string;
+    "followee_id" : string;
+    "time_stamp" : number
 }
 
 export interface FollowCheck {
-    "followerId" : string | undefined;
-    "followeeId" : string | undefined;
+    "follower_id" : string | undefined;
+    "followee_id" : string | undefined;
 }

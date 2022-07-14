@@ -1,3 +1,5 @@
+import { FollowingsComponent } from './../components/followings/followings.component';
+import { FollowersComponent } from './../components/followers/followers.component';
 import { StatusComponent } from './../components/status/status.component';
 import { ProfileComponent } from './../components/profile/profile.component';
 import { LandingComponent } from './../components/landing/landing.component';
@@ -12,6 +14,7 @@ import { UserLikesComponent } from './../components/profile/user-likes/user-like
 import { UserTweetsComponent } from '../components/profile/user-tweets/user-tweets.component';
 import { WithRepliesComponent } from '../components/profile/with-replies/with-replies.component';
 import { UserMediasComponent } from '../components/profile/user-medias/user-medias.component';
+import { ConnectComponent } from '../components/connect/connect.component';
 
 const routes : Routes = [
   { path: '', component: LandingComponent, canActivate : [LoginGuard]},
@@ -22,9 +25,11 @@ const routes : Routes = [
       { path : 'home', 
         component : HomeComponent,
         canActivate : [HomeGuard] }, 
-      { path : 'user/:userId', component : ProfileComponent, canActivate : [HomeGuard], children : [
+      { path : 'user/:userId', component : ProfileComponent, children : [
         { path : '', component : UserTweetsComponent}, {path : 'with_replies', component : WithRepliesComponent}, {path : 'medias', component : UserMediasComponent}, {path : 'likes', component : UserLikesComponent}
-      ]}, {path : 'user/:userId/status/:tweetId', component : StatusComponent}
+      ]}, {path : 'user/:userId/status/:tweetId', component : StatusComponent}, 
+      {path : 'connect', component : ConnectComponent}, {path : 'user/:userId/followings', component : FollowingsComponent}, 
+      {path : 'user/:userId/followers', component : FollowersComponent}
     ]
   },
   { path : 'login', component : LoginComponent, canActivate : [LoginGuard] },

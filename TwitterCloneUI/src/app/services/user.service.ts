@@ -27,20 +27,20 @@ export class UserService {
     return this.http.get<User>(this.usersUrl + `/${id}`);
   }
 
+  getUsers() : Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl + '/all');
+  }
+
+  getUserRecommendations(id : string | undefined) : Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl + `?userId=${id}`);
+  }
+
   getFollowers(id : string | undefined) : Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl + `/${id}/followers`);
   }
 
   getFollowings(id : string | undefined) : Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl + `/${id}/followings`);
-  }
-
-  getUserTweetsWithMedia(id : string | undefined) : Observable<Tweet[]> {
-    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/medias`);
-  }
-
-  getLikedTweets(id : string | undefined) : Observable<Tweet[]>{
-    return this.http.get<Tweet[]>(this.usersUrl + `/${id}/likes`);
   }
 
   userAsyncValidator() : AsyncValidatorFn {
