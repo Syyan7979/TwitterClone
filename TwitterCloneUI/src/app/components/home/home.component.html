@@ -9,7 +9,11 @@
         <app-create-tweet></app-create-tweet>
         <app-feed></app-feed>
     </div>
-    <div class="col-lg-5 p-0 ms-auto sidebar-column">
-        <app-follow-window [windowTitle]="'Who to follow'"></app-follow-window>
+    <div class="col-lg-5 p-0 ms-auto sidebar-column position-relative">
+        <div class="row m-0 p-0 fixed-scrollable">
+            <app-trend-window></app-trend-window>
+            <app-follow-window [windowTitle]="'Who to follow'"></app-follow-window>
+        </div>
+        
     </div>
 </div>

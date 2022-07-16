@@ -24,6 +24,7 @@ export class StatusComponent implements OnInit {
 
   mainUser !: User;
   content : string = '';
+  replyContent : string = '';
 
   followRecoClickable : boolean = true;
   followMessage : string = 'Follow';
@@ -103,6 +104,26 @@ export class StatusComponent implements OnInit {
     )
   }
 
+  quoteTweet() {
+    let body : NewTweet = {
+      user_id : this.authService.parsedToken(),
+      reply_id : null,
+      content : this.content,
+      media : null,
+      likes : 0,
+      user_name : this.mainUser.user_name,
+      twitter_handle : this.mainUser.twitter_handle,
+      profile_image : this.mainUser.profile_image,
+      retweet_id : null,
+      retweet_user_id : null,
+      retweet_twitter_handle : null,
+      quote_tweet_id : this.tweet.tweet_id,
+      retweet_quoute_count : 0
+    }
+    this.tweetService.newTweet(body).subscribe();
+    this.content = '';
+  }
+
   getQuotedTweet() : void {
     if (this.tweet.quote_tweet_id) {
       this.tweetService.getTweet(this.tweet.quote_tweet_id).subscribe(
@@ -134,7 +155,7 @@ export class StatusComponent implements OnInit {
     let body : NewTweet = {
       user_id : this.authService.parsedToken(),
       reply_id : String(this.route.snapshot.paramMap.get('tweetId')),
-      content : this.content,
+      content : this.replyContent,
       media : null,
       likes : 0,
       user_name : this.mainUser.user_name,

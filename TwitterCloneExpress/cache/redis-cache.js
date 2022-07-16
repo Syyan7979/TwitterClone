@@ -54,7 +54,16 @@ class RedisCache {
     async getSortedSet(key) {
         try {
             let set = await this.client.zrange(key, -19, -1, 'WITHSCORES');
-            return set.reverse();
+            let reverseSet = set.reverse();
+            let trends = []
+            for(let i = 0; i < set.length; i+=2) {
+                let newSet = {}
+                newSet['trend'] = reverseSet[i+1];
+                newSet['count'] = Number(reverseSet[i]);
+                trends.push(newSet);
+            }
+
+            return trends
 
         } catch (error) {
             throw error

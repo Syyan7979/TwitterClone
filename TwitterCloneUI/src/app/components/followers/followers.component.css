@@ -16,6 +16,11 @@
     cursor: pointer;
 }
 
+.fixed-scrollable{
+    position: sticky;
+    top: 0;
+}
+
 @media only screen and (max-width: 1020px) {
     .sidebar-column {
         display: none;

@@ -51,6 +51,7 @@ export class TweetComponent implements OnInit {
     this.initRetweet();
     this.parseTweetMedia();
     this.getQuotedTweet();
+    console.log(this.tweet)
   }
 
   userClicked(id : string) : void {
@@ -90,6 +91,7 @@ export class TweetComponent implements OnInit {
           if (this.quotedTweet.media) {
             this.quotedTweetMedias = JSON.parse(this.quotedTweet.media)
           }
+          console.log(res)
         }
       )
     }
@@ -112,24 +114,6 @@ export class TweetComponent implements OnInit {
   parseTweetMedia() : void {
     if (this.tweet.media) {
       this.tweetMedias = JSON.parse(this.tweet.media);
-    }
-
-    switch (this.tweetMedias.length) {
-      case 1:
-        this.imgWidth = '70%';
-        this.imgHeight = '400px';
-        break;
-      case 2:
-        this.imgWidth = 'calc(50% - 10px)';
-        this.imgHeight = '205px';
-        break;
-      case 3:
-        this.imgWidth = '200px';
-        this.imgHeight = '200px';
-        break;
-      case 4:
-        this.imgWidth = '200px';
-        this.imgHeight = '200px';
     }
   }
 
@@ -227,6 +211,10 @@ export class TweetComponent implements OnInit {
     this.userService.getUser(this.authService.parsedToken()).subscribe(res => this.user = res);
   }
 
+  clickQuouteModal() {
+    this.tweet = this.tweet;
+  }
+
   quoteTweet() {
     let fd = new FormData();
     this.selectedFiles.forEach((file) => { fd.append('images', file, file.name) })
@@ -236,7 +224,7 @@ export class TweetComponent implements OnInit {
           user_id : this.authService.parsedToken(),
           reply_id : null,
           content : this.content,
-          media : res === '[]'? res : JSON.stringify(res),
+          media : res === 'null'? res : JSON.stringify(res),
           likes : 0,
           user_name : this.user.user_name,
           twitter_handle : this.user.twitter_handle,

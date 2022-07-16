@@ -106,7 +106,7 @@
             <div class="col new-tweet">
                 <div class="row m-0">
                     <div class="form-floating p-0">
-                        <textarea [(ngModel)]="content" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
+                        <textarea [(ngModel)]="replyContent" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
                         <label for="floatingTextarea2">Tweet your reply</label>
                       </div>
                 </div>
@@ -118,39 +118,94 @@
         <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
     </div>
     <div class="col-lg-5 p-0 ms-auto sidebar-column">
-        <div class="row m-3 relevant-people-window position-fixed">
-            <div class="col p-0">
-                <div class="row m-0 px-3 window-title">
-                    <h5 class="p-0 m-0" >
-                        <strong>
-                            Relevant people
-                        </strong>
-                    </h5>
-                </div>
-                <div class="row m-0 p-3 user-content">
-                    <div class="col-auto m-0 p-0 me-3 profile-image">
-                        <div class="row m-0 p-0">
-                            <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked(user.user_id)">
+        <div class="row m-0 p-0 fixed-scrollable">
+            <div class="row m-3 relevant-people-window">
+                <div class="col p-0">
+                    <div class="row m-0 px-3 window-title">
+                        <h5 class="p-0 m-0" >
+                            <strong>
+                                Relevant people
+                            </strong>
+                        </h5>
+                    </div>
+                    <div class="row m-0 p-3 user-content">
+                        <div class="col-auto m-0 p-0 me-3 profile-image">
+                            <div class="row m-0 p-0">
+                                <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0" (click)="userClicked(user.user_id)">
+                            </div>
+                        </div>
+                        <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
+                            <div class="row m-0 p-0 content-header">
+                                <div class="col-auto p-0">
+                                    <div class="row user-handle m-0 p-0" ><strong class="p-0" (click)="userClicked(user.user_id)">{{user.twitter_handle}}</strong></div>
+                                    <div class="row m-0 p-0 user-name" (click)="userClicked(user.user_id)" >@{{user.user_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="user && mainUser && user.user_id != mainUser.user_id" class="col-auto m-0 p-0 ms-auto follow-button d-flex justify-content-center">
+                            <button 
+                                [ngStyle]="{'background-color' : followBGColor(), 'color' : followTextColor(), 'border-color' : followBorderColor()}" 
+                                *ngIf="user" 
+                                class="btn btn-primary follow-button-only text-center" 
+                                (click)="followClicked()" 
+                                (mouseleave)="followRecoClickable=true" 
+                                (mouseenter)="followRecoClickable=false">{{followMessage}}
+                            </button>
                         </div>
                     </div>
-                    <div *ngIf="user" class="col-auto m-0 p-0 handle-name">
-                        <div class="row m-0 p-0 content-header">
-                            <div class="col-auto p-0">
-                                <div class="row user-handle m-0 p-0" ><strong class="p-0" (click)="userClicked(user.user_id)">{{user.twitter_handle}}</strong></div>
-                                <div class="row m-0 p-0 user-name" (click)="userClicked(user.user_id)" >@{{user.user_name}}</div>
+                </div>
+            </div>
+            <app-trend-window></app-trend-window>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="user" class="modal custom fade quote-modal" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0 px-2">
+                <div class="row m-0 py-2">
+                    <div class="col p-0">
+                        <button type="button" class="btn-close p-2 close-button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="row p-0 px-1 py-2 m-0 create-tweet ">
+                    <div class="col-auto profile-image">
+                        <div class="row m-0">
+                            <img *ngIf="mainUser" src="{{mainUser.profile_image}}" class="dp-image img-fluid img-rounded p-0">
+                        </div>
+                    </div>
+                    <div class="col p-0 new-tweet">
+                        <div class="row m-0 mb-3">
+                            <div class="form-floating p-0">
+                                <textarea [(ngModel)]="content" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
+                                <label for="floatingTextarea2">Add a comment</label>
+                              </div>
+                        </div>
+
+                        <div *ngIf="tweet" class="row m-0 mb-2 px-2 py-1 quoted-tweet">
+                            <div class="col p-0">
+                                <div class="row m-0 content-header">
+                                    <div class="col-auto quote-user-handle px-0" ><strong>{{tweet.twitter_handle}}</strong></div>
+                                    <div class="col-auto quote-user-name px-0 ps-1" >@{{tweet.user_name}}</div>
+                                    <div class="col-auto timestamp px-0 ps-1"> &#x2022; {{tweet.time_stamp * 1000 | date}}</div>
+                                </div>
+                                <div class="row m-0 p-0 content">
+                                    <div class="row content-body m-0 p-0">
+                                        <div class="col p-0">{{tweet.content}}</div>
+                                    </div>
+                                    <div *ngIf="tweet.media !== 'null' && tweet.media !== null" class="row-cols-2 m-0 p-0 py-2 media-content justify-content-start">
+                                        <img *ngFor="let media of tweetMedias" class="col media-img p-0" src="{{media}}" >
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="user && mainUser && user.user_id != mainUser.user_id" class="col-auto m-0 p-0 ms-auto follow-button d-flex justify-content-center">
-                        <button 
-                            [ngStyle]="{'background-color' : followBGColor(), 'color' : followTextColor(), 'border-color' : followBorderColor()}" 
-                            *ngIf="user" 
-                            class="btn btn-primary follow-button-only text-center" 
-                            (click)="followClicked()" 
-                            (mouseleave)="followRecoClickable=true" 
-                            (mouseenter)="followRecoClickable=false">{{followMessage}}
-                        </button>
-                    </div>
+                </div>
+            </div>
+            <div class="row m-0 modal-footer p-0 justify-content-end">
+                <div class="col-auto p-0 mt-1 me-2">
+                    <button data-bs-dismiss="modal" aria-label="Close" type="submit" class="btn btn-primary tweet-button" (click)="quoteTweet()" [disabled]="content == ''" style="width: 100%; border-radius: 25px;">Tweet</button>
                 </div>
             </div>
         </div>

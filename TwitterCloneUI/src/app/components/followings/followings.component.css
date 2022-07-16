@@ -12,6 +12,11 @@
     max-width: 870px;
 }
 
+.fixed-scrollable{
+    position: sticky;
+    top: 0;
+}
+
 .main:hover{
     cursor: pointer;
 }

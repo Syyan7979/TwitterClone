@@ -1,3 +1,4 @@
+import { Trend } from './../interfaces/trend';
 import { Tweet, NewTweet } from './../interfaces/tweet';
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
@@ -18,6 +19,10 @@ export class TweetService {
 
   getTweet(id : string) : Observable<Tweet> {
     return this.http.get<Tweet>(this.tweetUrl + `/${id}`);
+  }
+
+  getTrends() : Observable<Trend[]> {
+    return this.http.get<Trend[]>(this.tweetUrl + `/trends/route`)
   }
 
   deleteTweet(id : string) : Observable<any> {

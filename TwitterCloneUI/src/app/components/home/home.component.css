@@ -16,9 +16,14 @@
     max-width: 870px;
 }
 
+.fixed-scrollable{
+    position: sticky;
+    top: 0;
+}
+
 .title-background-color {
     height: 45px;
-    width: 500px;
+    width: 498px;
     background-color: rgba(255,255,255,0.9);
     filter: blur(1);
 }

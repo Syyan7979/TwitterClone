@@ -13,7 +13,7 @@
     <div class="col-auto m-0 p-0 ms-auto follow-button d-flex justify-content-center">
         <button 
             [ngStyle]="{'background-color' : followBGColor(), 'color' : followTextColor(), 'border-color' : followBorderColor()}" 
-            *ngIf="user" 
+            *ngIf="checkIfUser()" 
             class="btn btn-primary follow-button-only text-center" 
             (click)="followClicked()" 
             (mouseleave)="followRecoClickable=true" 

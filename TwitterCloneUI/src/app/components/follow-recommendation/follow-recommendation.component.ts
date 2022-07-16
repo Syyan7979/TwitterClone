@@ -44,6 +44,10 @@ export class FollowRecommendationComponent implements OnInit {
     )
   }
 
+  checkIfUser() : boolean {
+    return this.authService.parsedToken() !== this.user?.user_id;
+  }
+
   followClicked() : void {
     if (this.authService.loggedIn()) {
       let body : FollowCheck = {

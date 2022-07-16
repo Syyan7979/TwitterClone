@@ -8,6 +8,11 @@
     max-width: 350px;
 }
 
+.fixed-scrollable{
+    position: sticky;
+    top: 0;
+}
+
 .connect {
     max-width: 870px;
 }

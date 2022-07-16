@@ -16,12 +16,12 @@
             <div class="row m-0 p-0 background-color-small-nav position-absolute">
             </div>
             <div class="row m-0 p-0 nav-icons position-relative justify-content-center">
-                <div class="col-auto home icon align-self-center">
+                <div (click)="homeClicked()" class="col-auto home icon align-self-center">
                     <div class="row m-0 p-0">
                         <img src="{{homeImg}}" width="30px" height="30px"/>
                     </div>
                 </div>
-                <div class="col-auto icon align-self-center">
+                <div (click)="profileClicked()" class="col-auto icon align-self-center">
                     <div class="row m-0 p-0">
                         <img src="{{profileImg}}" width="30px" height="30px"/></div>
                     </div>

@@ -44,6 +44,11 @@
     grid-column: 1/2;
 }
 
+.fixed-scrollable{
+    position: sticky;
+    top: 0;
+}
+
 .profile-picture {
     border: 5px solid white;
     background-color: #b7bec8;

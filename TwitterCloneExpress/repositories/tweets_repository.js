@@ -30,10 +30,9 @@ class Tweets {
         const tweet = values.content + ' ';
         const hashtags = tweet.match(regex);
 
-        if (hashtags) {
+        if (hashtags && values.retweet_id === null) {
             for (let i = 0; i < hashtags.length; i++) {
                 const result = await this.Redis.insertToSortedSet('trends', 1, hashtags[i].slice(1, -1));
-                console.log(result);
             }
         }
 
