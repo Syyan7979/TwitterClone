@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuoteModalComponent } from './quote-modal.component';
+import { QuotePopupComponent } from './quote-popup.component';
 
-describe('QuoteModalComponent', () => {
-  let component: QuoteModalComponent;
-  let fixture: ComponentFixture<QuoteModalComponent>;
+describe('QuotePopupComponent', () => {
+  let component: QuotePopupComponent;
+  let fixture: ComponentFixture<QuotePopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QuoteModalComponent ]
+      declarations: [ QuotePopupComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(QuoteModalComponent);
+    fixture = TestBed.createComponent(QuotePopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

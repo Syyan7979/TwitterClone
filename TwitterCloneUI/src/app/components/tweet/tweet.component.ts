@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Tweet, Dimensions, NewTweet } from 'src/app/interfaces/tweet';
+import { Tweet, NewTweet } from 'src/app/interfaces/tweet';
 import { User } from 'src/app/interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TweetService } from 'src/app/services/tweet.service';
@@ -51,7 +51,6 @@ export class TweetComponent implements OnInit {
     this.initRetweet();
     this.parseTweetMedia();
     this.getQuotedTweet();
-    console.log(this.tweet)
   }
 
   userClicked(id : string) : void {
@@ -91,7 +90,6 @@ export class TweetComponent implements OnInit {
           if (this.quotedTweet.media) {
             this.quotedTweetMedias = JSON.parse(this.quotedTweet.media)
           }
-          console.log(res)
         }
       )
     }
@@ -209,10 +207,6 @@ export class TweetComponent implements OnInit {
 
   getUser() : void {
     this.userService.getUser(this.authService.parsedToken()).subscribe(res => this.user = res);
-  }
-
-  clickQuouteModal() {
-    this.tweet = this.tweet;
   }
 
   quoteTweet() {

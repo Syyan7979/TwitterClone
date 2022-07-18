@@ -35,8 +35,6 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { FollowingsComponent } from './components/followings/followings.component';
 import { HashtagPipe } from './pipes/hashtag.pipe';
 import { TrendWindowComponent } from './components/trend-window/trend-window.component';
-import { QuoteModalComponent } from './components/quote-modal/quote-modal.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,8 +63,7 @@ import { QuoteModalComponent } from './components/quote-modal/quote-modal.compon
     ClickOutsideDirective,
     FollowingsComponent,
     HashtagPipe,
-    TrendWindowComponent,
-    QuoteModalComponent
+    TrendWindowComponent
   ],
   imports: [
     BrowserModule,
