@@ -35,6 +35,18 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { FollowingsComponent } from './components/followings/followings.component';
 import { HashtagPipe } from './pipes/hashtag.pipe';
 import { TrendWindowComponent } from './components/trend-window/trend-window.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { QuotePopupComponent } from './components/quote-popup/quote-popup.component';
+import { NgxFileDropModule } from '@bugsplat/ngx-file-drop';
+import { FileDropComponent } from './components/file-drop/file-drop.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+
+const config: SocketIoConfig = {
+	url: 'http://localhost:3000',
+	options: {}
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,14 +75,19 @@ import { TrendWindowComponent } from './components/trend-window/trend-window.com
     ClickOutsideDirective,
     FollowingsComponent,
     HashtagPipe,
-    TrendWindowComponent
+    TrendWindowComponent,
+    QuotePopupComponent,
+    FileDropComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    NgxFileDropModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
@@ -79,6 +96,7 @@ import { TrendWindowComponent } from './components/trend-window/trend-window.com
     HomeGuard, 
     LoginGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [QuotePopupComponent]
 })
 export class AppModule { }

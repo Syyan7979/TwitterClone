@@ -25,4 +25,8 @@ export class TrendWindowComponent implements OnInit {
       }
     )
   }
+
+  stringToNumber(string: string) {
+    return Number(string);
+  }
 }

@@ -1,0 +1,62 @@
+.quoted-tweet {
+    border : 1px solid #cfd9de;
+    border-radius : 25px;
+}
+
+.profile-image {
+    padding: 0;
+    margin-right: 10px;
+}
+
+.dp-image {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+}
+
+.dp-image:hover {
+    filter: grayscale(0.65);
+    -webkit-filter: grayscale(0.65);
+    -moz-filter: grayscale(0.65);
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    cursor: pointer;
+}
+
+.media-img{
+    border-radius: 30px;
+    border: 1px solid #cfd9de;
+    object-fit: cover;
+    margin: 2px;
+    aspect-ratio: 16/9;
+    width: calc(50% - 4px);
+}
+
+.close-button{
+    font-size: 13px;
+}
+
+.tweet-box {
+    border: 0;
+}
+
+.media-upload-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.selected-image{
+    object-fit: cover;
+    padding: 5px;
+    aspect-ratio: 16/9;
+}
+
+.media-upload-btn:hover {
+    cursor: pointer;
+}

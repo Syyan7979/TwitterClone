@@ -1,0 +1,7 @@
+<ngx-file-drop [multiple]="true" (onFileDrop)="onFilesDropped($event)" contentClassName="my-style" dropZoneClassName="my-style" accept="image/*">
+    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" >
+        <div class="image-upload">
+            <img class="media-upload-btn" src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/96/1d9bf0/external-upload-image-multimedia-tanah-basah-basic-outline-tanah-basah.png" (click)="openFileSelector()"/>
+        </div>
+    </ng-template>
+</ngx-file-drop>

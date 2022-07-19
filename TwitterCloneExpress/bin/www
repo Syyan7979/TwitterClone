@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('twitterclone:server');
 var http = require('http');
+let socketAPI = require('../modules/socketapi')
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,11 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+socketAPI.io.attach(server, {
+  cors : {
+    origin : 'http://localhost:4200'
+  }
+});
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +35,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -48,6 +56,7 @@ function normalizePort(val) {
 
   return false;
 }
+
 
 /**
  * Event listener for HTTP server "error" event.

@@ -1,0 +1,9 @@
+.media-upload-btn:hover {
+    cursor: pointer;
+}
+
+.media-upload-btn {
+    width: 20px;
+    height: 20px;
+}
+

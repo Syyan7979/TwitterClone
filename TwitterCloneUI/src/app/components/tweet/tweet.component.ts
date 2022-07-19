@@ -1,3 +1,4 @@
+import { QuotePopupComponent } from './../quote-popup/quote-popup.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { Tweet, NewTweet } from 'src/app/interfaces/tweet';
 import { User } from 'src/app/interfaces/user';
@@ -5,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TweetService } from 'src/app/services/tweet.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-tweet',
@@ -43,7 +44,8 @@ export class TweetComponent implements OnInit {
     private route : ActivatedRoute,
     private tweetService: TweetService,
     public authService : AuthService,
-    private userService : UserService) { }
+    private userService : UserService,
+    private modalService : NgbModal) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -125,6 +127,13 @@ export class TweetComponent implements OnInit {
 
   clickedOutside() : void {
     this.retweetClicked = false;
+  }
+
+  clickedQuoteModal() : void {
+    const modalRef = this.modalService.open(QuotePopupComponent);
+    modalRef.componentInstance.tweet = this.tweet;
+    modalRef.componentInstance.user = this.user;
+    this.tweetService.quotedTweet = true;
   }
 
   styleUpdate() : string {

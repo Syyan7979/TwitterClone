@@ -1,9 +1,50 @@
-<div class="modal custom fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                {{ tweet.content }}
+<div class="modal-body p-0">
+    <div class="row m-0 py-2 px-3">
+        <div class="col p-0">
+            <button type="button" class="btn-close p-0 close-button" (click)="closeModal()"></button>
+        </div>
+    </div>
+    <div class="row p-0 px-3 pb-2 pt-1 m-0 create-tweet ">
+        <div class="col-auto profile-image">
+            <div class="row m-0">
+                <img *ngIf="user" src="{{user.profile_image}}" class="dp-image img-fluid img-rounded p-0">
             </div>
         </div>
+        <div class="col p-0 new-tweet">
+            <div class="row m-0 mb-3">
+                <div class="form-floating p-0">
+                    <textarea [(ngModel)]="content" class="form-control tweet-box" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 70px"></textarea>
+                    <label for="floatingTextarea2">Add a comment</label>
+                  </div>
+            </div>
+
+            <div *ngIf="selectedImages.length != 0" class="row-cols-2 p-2 m-0">
+                <img *ngFor="let image of selectedImages" class="col selected-image" src="{{image}}">
+            </div>
+
+            <div class="row m-0 mb-2 px-2 py-1 quoted-tweet">
+                <div class="col p-0">
+                    <div class="row m-0 content-header">
+                        <div class="col-auto quote-user-handle px-0" ><strong>{{tweet.twitter_handle}}</strong></div>
+                        <div class="col-auto quote-user-name px-0 ps-1" >@{{tweet.user_name}}</div>
+                        <div class="col-auto timestamp px-0 ps-1"> &#x2022; {{tweet.time_stamp * 1000 | date}}</div>
+                    </div>
+                    <div class="row m-0 p-0 content">
+                        <div class="row content-body m-0 p-0">
+                            <div class="col p-0">{{tweet.content}}</div>
+                        </div>
+                        <div *ngIf="tweet.media !== 'null' && tweet.media !== null" class="row-cols-2 m-0 p-0 py-2 media-content justify-content-start">
+                            <img *ngFor="let media of tweetMedias" class="col media-img p-0" src="{{media}}" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 modal-footer p-0 justify-content-evenly">
+    <app-file-drop class="col p-0 ms-5 media-upload d-flex align-items-center" (filesDropped)="onFilesDropped($event)"></app-file-drop> 
+    <div class="col-auto p-0 mt-1 me-2">
+        <button data-bs-dismiss="modal" aria-label="Close" type="submit" class="btn btn-primary tweet-button" (click)="quoteTweet()" [disabled]="content == '' && selectedFiles.length == 0" style="width: 100%; border-radius: 25px;">Tweet</button>
     </div>
 </div>

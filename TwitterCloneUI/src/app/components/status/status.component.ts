@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FollowCheck } from 'src/app/interfaces/follow';
 import { Component, OnInit } from '@angular/core';
 import { Tweet, NewTweet } from 'src/app/interfaces/tweet';
@@ -7,6 +8,7 @@ import { User } from 'src/app/interfaces/user';
 import { TweetService } from 'src/app/services/tweet.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowingService } from 'src/app/services/following.service';
+import { QuotePopupComponent } from '../quote-popup/quote-popup.component';
 
 @Component({
   selector: 'app-status',
@@ -56,8 +58,8 @@ export class StatusComponent implements OnInit {
     private route : ActivatedRoute, 
     private tweetService : TweetService, 
     public authService : AuthService,
-    private followingService : FollowingService
-    ) { 
+    private followingService : FollowingService,
+    private modalService : NgbModal) { 
       this.router.routeReuseStrategy.shouldReuseRoute = function() {
         return false;
       };
@@ -176,6 +178,13 @@ export class StatusComponent implements OnInit {
     if (this.followRecoClickable) {
       this.router.navigate(['/user/', id], { relativeTo: this.route.root});
     }
+  }
+
+  clickedQuoteModal() : void {
+    const modalRef = this.modalService.open(QuotePopupComponent);
+    modalRef.componentInstance.tweet = this.tweet;
+    modalRef.componentInstance.user = this.mainUser;
+    this.tweetService.quotedTweet = true;
   }
 
   followClicked() : void {

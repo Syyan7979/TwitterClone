@@ -12,6 +12,7 @@ export class TweetService {
   private tweetUrl : string = "http://localhost:3000/tweets"
   private likesUrl : string = "http://localhost:3000/likes"
   constructor(private http: HttpClient) { }
+  public quotedTweet : boolean = false;
 
   newTweet(tweet : NewTweet) : Observable<Tweet> {
     return this.http.post<Tweet>(this.tweetUrl, tweet);

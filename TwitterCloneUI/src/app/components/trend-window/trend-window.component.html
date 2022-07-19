@@ -10,7 +10,7 @@
         <div *ngFor="let trend of trends" class="row m-0 px-3 py-2 trend-row">
             <div class="col p-0">
                 <div class="row trend-nae m-0 p-0" ><strong class="p-0" >{{trend.trend}}</strong></div>
-                <div class="row m-0 p-0 trend count" >{{trend.count}} Tweets</div>
+                <div class="row m-0 p-0 trend count" >{{trend.count}} {{stringToNumber(trend.count) > 1? 'tweets' : 'tweet'}}</div>
             </div>
         </div>
         <div *ngIf="totalTrendsReturned > 10" class="row m-0 show-more align-items-center">show more</div>

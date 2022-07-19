@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/interfaces/user';
 import { NewTweet } from 'src/app/interfaces/tweet';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SocketService } from 'src/app/services/socket.service';
 
 
 @Component({
@@ -14,7 +15,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CreateTweetComponent implements OnInit {
 
-  constructor(private tweetService : TweetService, private userService : UserService, private authService : AuthService, private router : Router, private route : ActivatedRoute) { }
+  constructor(
+    private tweetService : TweetService, 
+    private userService : UserService, 
+    private authService : AuthService, 
+    private router : Router, 
+    private route : ActivatedRoute,
+    private socketService : SocketService
+  ) { }
   user !: User;
   content = ''
   newTweets = 0;
@@ -48,6 +56,7 @@ export class CreateTweetComponent implements OnInit {
           retweet_quoute_count : 0
         }
         this.tweetService.newTweet(body).subscribe();
+        this.socketService.sendMessage('hello');
         this.content = '';
         this.newTweets += 1
         this.selectedFiles = [];
@@ -76,7 +85,6 @@ export class CreateTweetComponent implements OnInit {
       }
       let images = await Promise.all(this.selectedFiles.map(f=>{return this.readAsDataURL(f)}));
       this.selectedImages = images;
-      console.log(this.selectedImages)
     } else {
       window.alert("Please choose up to 4 photos")
     }
